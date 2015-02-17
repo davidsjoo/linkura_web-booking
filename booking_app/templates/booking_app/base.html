@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}Bokningsappen{% endblock %}</title>
+	{% block head %}
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+	{% endblock %}
+</head>
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,80 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+{% if time_error_message %}<h2>{{ time_error_message }}</h2>{% endif %}
+{% if form_error_message %}<h2>{{ form_error_message }}</h2>{% endif %}
+
+<div id="rubrik">{{customer.customer_name}} </div>
+
+<form action="{% url 'booking_app:submit' customer.id visit.id %}" method="post">
+{% csrf_token %}
+<h2>Fyll i dina kontaktuppgifter</h2>
+<table>
+<tr>
+<th><label for="client_firstname">Förnamn </label>{% csrf_token %}</th>
+<th><label for="client_lastname">Efternamn </label>{% csrf_token %}</th>
+<th><label for="client_phone">Mobilnummer </label>{% csrf_token %}</th>
+<th><label for="client_mail">Mailadress </label>{% csrf_token %}</th>
+</tr>
+<tr>
+<td><input id="client_firstname" type="text" name="client_firstname"></td>
+<td><input id="client_lastname" type="text" name="client_lastname"></td>
+<td><input id="client_phone" type="text" name="client_phone"></td>
+<td><input id="client_mail" type="text" name="client_mail"></td>
+</table>
+{% for time in time_list3 %}
+aa
+{% endfor %}
+<h2>Välj en tid</h2>
+<table>
+    <tr>
+        <th>Måndag</th>
+        <th>Tisdag</th>
+        <th>Onsdag</th>
+        <th>Torsdag</th>
+        <th>Fredag</th>
+    </tr>
+    <tr>
+        <td>
+       {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Monday" %}{% include "booking_app/time_form.html" %}
+	       {% endif %}
+       {% endfor %}
+        </td>
+        <td>
+        {% for time in visit.time_set.all %}
+	       {% if time.datetime|date:"l" == "Tuesday" %}{% include "booking_app/time_form.html" %}
+	       {% endif %}
+        {% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Wednesday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Thursday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Friday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+</tr>
+</table>
+<br />
+    <input type='submit' value='Anmäl' />
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+<html>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+
+<head></head>
+
+<body>
+
+<div id="rubrik">Företag </div><br />
+
+<table>
+    {% for customer in latest_customer_list %}
+    	<tr>
+			<td><a href="{% url 'booking_app:besok' customer.id %}">{{ customer.customer_name }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+<div id="rubrik">Företag </div><br />
+
+<table>
+    {% for customer in latest_customer_list %}
+        <tr>
+            <td><a href="{% url 'booking_app:visit' customer.id %}">{{ customer.customer_name }}</a></td>
+        </tr>
+    {% endfor %}
+</table>    
+{% endblock %}

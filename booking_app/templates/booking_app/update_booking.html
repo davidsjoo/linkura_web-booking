@@ -1,0 +1,87 @@
+<html>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+
+<head></head>
+
+<body>
+<div id="rubrik">{{customer.customer_name}} </div>
+<h2>Dina uppgifter</h2>
+<table>
+    <tr><th>Bokning</th>
+    	<th>Förnamn</th>
+    	<th>Efternamn</th>
+    	<th>Mailadress</th>
+    	<th>Mobilnummer</th>
+    </tr>
+    <tr>
+    	<td>{{booking.time}}</td>
+    	<td>{{booking.client_firstname}}</td>
+    	<td>{{booking.client_lastname}}</td>
+    	<td>{{booking.client_mail}}</td>
+    	<td>{{booking.client_phone}}</td>
+    </tr>
+</table>
+
+
+<h2>Välj en ny tid i tabellen</h2>
+<form action="{% url 'booking_app:new_submit' customer.id visit.id booking.id %}" method="post">
+{% csrf_token %}
+<table>
+    <tr>
+        <th>Måndag</th>
+        <th>Tisdag</th>
+        <th>Onsdag</th>
+        <th>Torsdag</th>
+        <th>Fredag</th>
+    </tr>
+<tr>
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Monday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Tuesday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Wednesday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Thursday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+
+<td>
+{% for time in visit.time_set.all %}
+	{% if time.datetime|date:"l" == "Friday" %}
+		{% include "booking_app/time_form.html" %}
+	{% endif %}
+{% endfor %}
+</td>
+</tr>
+</table>
+<br />
+<input type='submit' value='Byt tid'/>
+</form>
+
+</body>
+
+</html>

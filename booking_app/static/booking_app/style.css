@@ -1,0 +1,73 @@
+li a {
+    color: green;
+}
+body {
+    color: black;
+    	font  : 15px "Verdana", sans-serif;
+}
+body a {
+    color: #1C1C1C;
+}
+
+
+form {
+
+  width  : 100%;
+  height : 100%px;
+  margin : 0;
+  border: none;
+
+}
+
+input, textarea {
+  font    : .9em/1.5em "Arial", sans-serif;
+  font-size: 15px;
+
+}
+div {
+    width:1000px;
+    float:left;
+    font-size: 15px;
+    font-family: "Arial";
+}
+#rubrik{
+	font-size: 30px;
+	color: white;
+	float: center;
+	background: #288dc0;
+	width: auto;
+	border: 1px solid;
+	border-color: #D8D8D8;
+    padding: 3px;
+}
+
+table{
+    table-layout: fixed;
+    width: 100%;	
+    font-size: 15px;
+    font-family: "Arial";
+}
+
+th,td
+    {
+        margin: 0;
+        text-align: left;
+        border-collapse: collapse;
+        outline: 1px solid #D8D8D8;
+    }
+
+    td
+    {
+        padding: 5px 1px;
+
+    }
+
+    th
+    {
+        background: #288dc0;
+        color: white;
+        padding: 5px 1px;
+    }
+
+
+

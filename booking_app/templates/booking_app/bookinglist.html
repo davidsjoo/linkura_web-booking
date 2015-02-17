@@ -1,0 +1,9 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+    {% for booking in bookinglist %}
+    
+    {{booking.time}} -- {{ booking.client_firstname }} {{ booking.client_lastname }} -- {{ booking.client_mail }} -- {{booking.client_phone }} -- {{booking.id}} <br />	
+    
+    {% endfor %}
+{% endblock %}

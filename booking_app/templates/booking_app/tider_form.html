@@ -1,0 +1,4 @@
+<label for="time{{ forloop.counter }}">	
+	<a href="{% url 'booking_app:bokningar' customer.id visit.id time.id %}">{{ time.datetime|time:"H:i"}} - {{time.location}}</a>
+</label>
+<br />

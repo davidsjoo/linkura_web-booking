@@ -1,0 +1,31 @@
+<html>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+
+<head></head>
+
+<body>
+
+<div id="rubrik">{{customer.customer_name}} </div><br />
+
+<table>
+    <tr>
+    	<th>Besök</th>
+    	<th>Dag</th>
+    	<th>Månad</th>
+    	<th>År</th>
+    	</tr>
+    {% for visit in customer.visit_set.all %}
+    <tr>
+    	<td><a href="{% url 'booking_app:tider' customer.id visit.id %}">{{ visit.visit_name }}</a></td>
+    	<td>{{visit.visit_date|date:"l j"}}</td>
+    	<td>{{visit.visit_date|date:"F"}}</td>
+    	<td>{{visit.visit_date|date:"Y"}}</td>
+    {% endfor %}
+    </tr>
+</table>
+
+</body>
+
+</html>

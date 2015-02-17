@@ -1,0 +1,31 @@
+<html>
+
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+
+<head></head>
+
+<body>
+
+<div id="rubrik">{{customer.customer_name}} - {{visit.visit_name}} - {{time.datetime|time:"H:i"}} </div>
+<br />
+<table>
+	<tr>
+		<th>Förnamn</th>
+		<th>Efternamn</th>
+		<th>Mailadress</th>
+		<th>Mobilnummer</th>
+	</tr>
+	{% for booking in time.booking_set.all %}
+    <tr>
+		<td>{{booking.client_firstname}}</td>
+		<td>{{booking.client_lastname}}</td>
+        <td>{{booking.client_mail}}</td>
+        <td>{{booking.client_phone}}</td>
+    </tr>
+	{% endfor %}
+</table>
+
+</body>
+
+</html>
