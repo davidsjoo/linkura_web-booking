@@ -1,5 +1,5 @@
 """
-Django settings for web_booking4 project.
+Django settings for web_booking project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -50,9 +50,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'web_booking4.urls'
+ROOT_URLCONF = 'web_booking.urls'
 
-WSGI_APPLICATION = 'web_booking4.wsgi.application'
+WSGI_APPLICATION = 'web_booking.wsgi.application'
 
 
 # Database
