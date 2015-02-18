@@ -65,21 +65,20 @@ def update_booking(request, customer_id, visit_id, booking_id):
 def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
-    time_list = Time.objects.filter(datetime__week_day=2)[:1].get()
-    time_list2 = Time.objects.filter(datetime__week_day=3)[:1].get()
-    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'time_list': time_list, 'time_list2': time_list2,})
+    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer,})
 
 #class ResultsView(generic.DetailView):
  #   model = Customer
   #  template_name = 'booking_app/results.html'
 
-def results(request, customer_id, visit_id):
+def results(request, customer_id, visit_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     visit = get_object_or_404(Visit, pk=visit_id)
+    booking = get_object_or_404(Booking, pk=booking_id)
 
     print "test", visit
 
-    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer})
+    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking,})
 
 
 
@@ -115,7 +114,7 @@ def submit(request, customer_id, visit_id):
                 client_mail = request.POST['client_mail']
                 create_booking = Booking.objects.create(time = time, client_firstname = client_firstname, client_lastname = client_lastname, client_phone = client_phone, client_mail = client_mail)
                 booking = create_booking.id
-                return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id,)))
+                return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, booking,)))
                 """return render(request, 'booking_app/results.html', {
                 'visit': p,
                 'selected_time': selected_time,
