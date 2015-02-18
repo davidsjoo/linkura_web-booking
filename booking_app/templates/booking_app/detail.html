@@ -23,14 +23,69 @@
 <td><input id="client_mail" type="text" name="client_mail"></td>
 </table>
 
+       
 <h2>Välj en tid</h2>
 <table>
-    <tr>
-        <th>Måndag</th>
-        <th>Tisdag</th>
-        <th>Onsdag</th>
-        <th>Torsdag</th>
-        <th>Fredag</th>
+        <tr>
+        <th>Måndag 
+            {% for time in visit.time_set.all %}
+                {% ifchanged %}
+                    {% if time.datetime|date:"l" == "Monday" %}
+                    {{time.datetime|date:"d/m"}}
+                        {% for time in visit.time_set.all|slice:"1" %}
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endifchanged %}
+            {% endfor %}
+        </th>
+        <th>Tisdag 
+            {% for time in visit.time_set.all %}
+                {% ifchanged %}
+                    {% if time.datetime|date:"l" == "Tuesday" %}
+                    {{time.datetime|date:"d/m"}}
+                        {% for time in visit.time_set.all|slice:"1" %}
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endifchanged %}
+            {% endfor %}
+        <th>Onsdag
+            {% for time in visit.time_set.all %}
+                {% ifchanged %}
+                    {% if time.datetime|date:"l" == "Wednesday" %}
+                    {{time.datetime|date:"d/m"}}
+                        {% for time in visit.time_set.all|slice:"1" %}
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endifchanged %}
+            {% endfor %}
+        </th>
+        <th>Torsdag 
+            {% for time in visit.time_set.all %}
+                {% ifchanged %}
+                    {% if time.datetime|date:"l" == "Thursday" %}
+                    {{time.datetime|date:"d/m"}}
+                        {% for time in visit.time_set.all|slice:"1" %}
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endifchanged %}
+            {% endfor %}
+        </th>
+        <th>Fredag
+            {% for time in visit.time_set.all %}
+                {% ifchanged %}
+                    {% if time.datetime|date:"l" == "Friday" %}
+                    {{time.datetime|date:"d/m"}}
+                        {% for time in visit.time_set.all|slice:"1" %}
+                        {% endfor %}
+                    {% else %}
+                    {% endif %}
+                {% endifchanged %}
+            {% endfor %}
+        </th>
     </tr>
     <tr>
         <td>

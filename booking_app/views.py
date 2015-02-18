@@ -65,9 +65,7 @@ def update_booking(request, customer_id, visit_id, booking_id):
 def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
-    time_list = Time.objects.filter(datetime__week_day=2)[:1].get()
-    time_list2 = Time.objects.filter(datetime__week_day=3)[:1].get()
-    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'time_list': time_list, 'time_list2': time_list2,})
+    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer,})
 
 #class ResultsView(generic.DetailView):
  #   model = Customer
