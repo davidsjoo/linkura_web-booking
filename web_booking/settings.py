@@ -25,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['lia.linkura.se', '10.197.84.63']
+ALLOWED_HOSTS = ['lia.linkura.se', '10.197.84.63', '10.197.84.11']
 
 
 # Application definition
