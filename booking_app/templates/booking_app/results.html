@@ -10,7 +10,9 @@
 <h1>Tack för din bokning!!</h1>
 
 <p> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</p>
-<a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a>
+<a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a><br /><br />
+Tryck här om du vill se alla bokningar<br />
+<a href="{% url 'booking_app:tider' customer.id visit.id %}">Bokningar</a>
 
 </body>
 
