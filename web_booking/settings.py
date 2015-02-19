@@ -25,7 +25,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lia.linkura.se', '10.197.84.63']
 
 
 # Application definition
@@ -84,4 +84,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'localhost'
+EMAIL_HOST_USER = 'davidsjoo@gmail.com'
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
