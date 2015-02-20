@@ -86,7 +86,7 @@ def results(request, customer_id, visit_id, booking_id):
 
     print "test", visit
 
-    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
+    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking,})
 
 
 
