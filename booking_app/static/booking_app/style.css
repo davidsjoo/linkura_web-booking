@@ -40,10 +40,33 @@ div {
 	border-color: #D8D8D8;
     padding: 3px;
 }
+#tider_rubrik {
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
+    float: center;
+    background: #ffffff;
+    width: auto;
+    border-bottom: 0px solid;
+    border-color: #D8D8D8;
+    padding: 1px;
+}
+
+#tider {
+    font-size: 15px;
+    color: black;
+    float: center;
+    background: #ffffff;
+    width: auto;
+    border-bottom: 0px dashed;
+    border-color: #D8D8D8;
+    padding: 1px;
+
+}
 
 table{
     table-layout: fixed;
-    width: 100%;	
+    	
     font-size: 15px;
     font-family: "Arial";
 }
@@ -68,6 +91,8 @@ th,td
         color: white;
         padding: 5px 1px;
     }
+
+    
 
 
 

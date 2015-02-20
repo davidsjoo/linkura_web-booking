@@ -9,7 +9,7 @@
 
 <div id="rubrik">Företag </div><br />
 
-<table>
+<table width="100%" align="left">
     {% for customer in latest_customer_list %}
     	<tr>
 			<td><a href="{% url 'booking_app:besok' customer.id %}">{{ customer.customer_name }}</a></td>

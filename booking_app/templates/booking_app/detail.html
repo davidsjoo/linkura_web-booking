@@ -9,7 +9,7 @@
 <form action="{% url 'booking_app:submit' customer.id visit.id %}" method="post">
 {% csrf_token %}
 <h2>Fyll i dina kontaktuppgifter</h2>
-<table>
+<table width="100%" align="left">
 <tr>
 <th><label for="client_firstname">Förnamn </label>{% csrf_token %}</th>
 <th><label for="client_lastname">Efternamn </label>{% csrf_token %}</th>
@@ -25,7 +25,7 @@
 
        
 <h2>Välj en tid</h2>
-<table>
+<table width="100%" align="left">
         <tr>
         <th>Måndag 
             {% for time in visit.time_set.all %}

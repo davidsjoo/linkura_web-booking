@@ -7,24 +7,21 @@
 
 <body>
 
-<div id="rubrik">{{customer.customer_name}} - {{visit.visit_name}} - {{time.datetime|time:"H:i"}} </div>
-<br />
-<table>
-	<tr>
-		<th>Förnamn</th>
-		<th>Efternamn</th>
-		<th>Mailadress</th>
-		<th>Mobilnummer</th>
-	</tr>
-	{% for booking in time.booking_set.all %}
-    <tr>
-		<td>{{booking.client_firstname}}</td>
-		<td>{{booking.client_lastname}}</td>
-        <td>{{booking.client_mail}}</td>
-        <td>{{booking.client_phone}}</td>
-    </tr>
-	{% endfor %}
-</table>
+<div id="rubrik">Kontaktuppgifter för {{booking.client_firstname}} {{booking.client_lastname}}</div><br />
+
+<table width="30%" align="left" >
+<tr>
+	<th>Mailadress</th>
+</tr>
+<tr>
+<td>{{booking.client_mail}}</td>
+</tr>
+<tr>
+	<th>Mobilnummer</th>
+</tr>
+<tr>
+	<td>{{booking.client_phone}}</td>
+</tr>
 
 </body>
 
