@@ -1,6 +1,7 @@
 from django.db import models
 from django.forms import ModelForm
 
+
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
 	def __str__(self):
@@ -35,7 +36,3 @@ class Booking(models.Model):
 	def __str__(self):
 		return self.client_firstname
 
-class BookingForm(ModelForm):
-	class Meta:
-		model = Booking
-		fields = ['client_firstname', 'client_lastname', 'client_phone', 'client_mail']
