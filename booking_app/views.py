@@ -45,17 +45,18 @@ def tider(request, customer_id, visit_id):
     sort_time = Time.objects.order_by('datetime')
     return render(request, 'booking_app/tider.html', {'visit': visit, 'customer': customer, 'sort_time': sort_time})
 
-def bokningar(request, customer_id, visit_id, time_id):
+def bokningar(request, customer_id, visit_id, time_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
     time = get_object_or_404(Time, pk=time_id)
-    return render(request, 'booking_app/bokningar.html', {'visit': visit, 'customer': customer, 'time': time})
+    booking = get_object_or_404(Booking, pk=booking_id)
+    return render(request, 'booking_app/bokningar.html', {'visit': visit, 'customer': customer, 'time': time, 'booking': booking})
 
 class BookingsView(generic.ListView):
     template_name = 'booking_app/bookinglist.html'
     context_object_name = 'bookinglist'
     def get_queryset(self):
-        client = Booking.objects.all()
+        client = Booking.objects.order_by('time')
 
         
         result_list = list(chain(client))

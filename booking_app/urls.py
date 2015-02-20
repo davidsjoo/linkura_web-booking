@@ -12,7 +12,7 @@ urlpatterns = patterns('booking_app.views',
     
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/$', views.detail, name='detail'),
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/tider/$', views.tider, name='tider'),
-    url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<time_id>\d+)/bokningar/$', views.bokningar, name='bokningar'),
+    url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<time_id>\d+)/(?P<booking_id>\d+)/bokningar/$', views.bokningar, name='bokningar'),
     url(r'^bookinglist/$', views.BookingsView.as_view(), name='bookinglist'),
     url(r'^foretag/$', views.CustomerView.as_view(), name='foretag'),
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/submit$', views.submit, name='submit'),

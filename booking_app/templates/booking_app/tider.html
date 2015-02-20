@@ -21,6 +21,7 @@
 		<td>
 		{% for time in visit.time_set.all %}
 				{% if time.datetime|date:"l" == "Monday" %}
+
 				{% include "booking_app/tider_form.html" %}
 			{% endif %}
 		{% endfor %}
@@ -36,7 +37,9 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Wednesday" %}
+
 		{% include "booking_app/tider_form.html" %}
+
 	{% endif %}
 {% endfor %}
 </td>
@@ -58,7 +61,6 @@
 </td>
 </tr>
 </table>
-
 </body>
 
 </html>
