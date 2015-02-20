@@ -1,4 +1,3 @@
-from booking_app.models import Customer, Visit, Time, Booking, BookingForm
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext, loader
@@ -6,6 +5,13 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
+
+from booking_app.models import Customer
+from booking_app.models import Visit
+from booking_app.models import Time
+from booking_app.models import Booking
+from booking_app.forms import BookingForm
+
 
 def timelist(request, customer_id, visit_id, time_id):
     visit = get_object_or_404(Visit, pk=visit_id)
@@ -66,7 +72,8 @@ def update_booking(request, customer_id, visit_id, booking_id):
 def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
-    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer,})
+    form = BookingForm(request.POST or None)
+    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
 
 #class ResultsView(generic.DetailView):
  #   model = Customer
@@ -79,7 +86,7 @@ def results(request, customer_id, visit_id, booking_id):
 
     print "test", visit
 
-    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking,})
+    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
 
 
 
@@ -90,6 +97,7 @@ class VisitView(generic.DetailView):
 def submit(request, customer_id, visit_id):
     p = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
+    form = BookingForm(request.POST or None)
     try:
         selected_time = p.time_set.get(pk=request.POST['time'])
         
@@ -98,12 +106,12 @@ def submit(request, customer_id, visit_id):
         return render(request, 'booking_app/detail.html', {
             'visit': p,
             'time_error_message': "Du har inte valt en tid.", 
-            'customer': customer
+            'customer': customer,
+            'form': form,
             })
 
     else:
         if request.method == 'POST':
-            form = BookingForm(request.POST)
             if form.is_valid():
                 selected_time.capacity -=1
                 selected_time.save()
@@ -116,18 +124,12 @@ def submit(request, customer_id, visit_id):
                 create_booking = Booking.objects.create(time = time, client_firstname = client_firstname, client_lastname = client_lastname, client_phone = client_phone, client_mail = client_mail)
                 booking = create_booking.id
                 return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, booking,)))
-                """return render(request, 'booking_app/results.html', {
-                'visit': p,
-                'selected_time': selected_time,
-                'customer': customer,
-                'time_id': time_id,
-                'test': create_booking,
-                })"""
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
                 'form_error_message': "Du har inte fyllt i alla falt.",
-                'customer': customer
+                'customer': customer,
+                'form': form,
                 })
 
 
