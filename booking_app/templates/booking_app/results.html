@@ -7,12 +7,18 @@
 
 <body>
 
-<h1>Tack för din bokning!!</h1>
+<div id="rubrik">Tack för din bokning {{booking.client_firstname}}!</div>
+<h3>Du är nu anmäld på följande tid och datum:</h3>
+{{time.datetime|date:"d/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}
+</table>
+<h3>Dina uppgifter:</h3>
+{{booking.client_firstname}} {{booking.client_lastname}}<br />
+{{booking.client_mail}}<br />
+{{booking.client_phone}}
 
-<p> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</p>
+<h3> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</h3>
 <a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a><br /><br />
-<p>Tryck här om du vill se alla bokningar för {{customer.customer_name}}</p>
-<a href="{% url 'booking_app:tider' customer.id visit.id %}">Bokningar</a>
+
 
 </body>
 
