@@ -56,7 +56,7 @@ class BookingsView(generic.ListView):
     template_name = 'booking_app/bookinglist.html'
     context_object_name = 'bookinglist'
     def get_queryset(self):
-        client = Booking.objects.order_by('time')
+        client = Booking.objects.all()
 
         
         result_list = list(chain(client))
@@ -66,7 +66,8 @@ def update_booking(request, customer_id, visit_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
     booking = get_object_or_404(Booking, pk=booking_id)
-    return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking,})
+    form = BookingForm(request.POST or None)
+    return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
 
 
 def detail(request, customer_id, visit_id):
@@ -158,16 +159,9 @@ def new_submit(request, customer_id, visit_id, booking_id):
         old_time.save()
         selected_time.capacity -=1
         selected_time.save()
-        new_time = Booking.objects.get(pk=booking.id)
-        new_time.time = selected_time
-        new_time.save()
+        get_time = Booking.objects.get(pk=booking.id)
+        get_time.time = selected_time
+        #get_time.client_firstname = request.POST['client_firstname']
+        #get_time.save()
         time_id = selected_time.id
         return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking.id,)))
-        """return render(request, 'booking_app/results.html', {
-        'visit': p,
-        'selected_time': selected_time,
-        'customer': customer,
-        'booking': booking,
-        'new_time': new_time,
-        
-        })"""
