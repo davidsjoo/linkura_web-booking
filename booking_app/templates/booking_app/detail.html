@@ -8,9 +8,10 @@
 
 <form action="{% url 'booking_app:submit' customer.id visit.id %}" method="post">
 {% csrf_token %}
+
 <h2>Fyll i dina kontaktuppgifter</h2>
 
-<table width="100%" align="left">
+<table width="100%" align="bottom">
 <tr>
 <th><label for="client_firstname">Förnamn * </label>{% csrf_token %}</th>
 <th><label for="client_lastname">Efternamn * </label>{% csrf_token %}</th>
@@ -22,10 +23,12 @@
 <td>{{form.client_lastname}}</td>
 <td>{{form.client_phone}}</td>
 <td>{{form.client_mail}}</td>
+</tr>
 </table>
 
 <h2>Välj en tid</h2>
-<table width="100%" align="left">
+
+<table width="100%" align="bottom">
         <tr>
         <th>Måndag 
             {% for time in visit.time_set.all %}

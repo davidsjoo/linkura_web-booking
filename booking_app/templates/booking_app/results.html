@@ -2,14 +2,17 @@
 
 {% block body %}
 
-<div id="rubrik">Tack för din bokning!</div>
-<h3>Du är nu anmäld följande datum och tid:</h3>
-{{time.datetime|date:"d/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}
+<div id="rubrik">Tack för din bokning!</div><br />
+Du är nu anmäld följande datum och tid:
+<h3>{{time.datetime|date:"d/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}</h3>
 </table>
-<h3>Dina uppgifter:</h3>
 {{booking.client_firstname}} {{booking.client_lastname}}<br />
-{{booking.client_mail}}<br />
-{{booking.client_phone}}
+Mailadress:{% if booking.client_mail %}{{booking.client_mail}}
+{% else %} <i>ej angiven</i>
+{% endif %}<br />
+Mobilnummer: {% if booking.client_phone %}{{booking.client_phone}}
+{% else %} <i>ej angivet</i>
+{% endif %}<br />
 
 <h3> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</h3>
 <a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a><br /><br />

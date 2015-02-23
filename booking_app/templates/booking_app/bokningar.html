@@ -9,13 +9,17 @@
 	<th>Mailadress</th>
 </tr>
 <tr>
-<td>{{booking.client_mail}}</td>
+<td>{% if booking.client_mail %}{{booking.client_mail}}
+{% else %} <i>ej angiven</i>
+{% endif %}</td>
 </tr>
 <tr>
 	<th>Mobilnummer</th>
 </tr>
 <tr>
-	<td>{{booking.client_phone}}</td>
+	<td>{% if booking.client_phone %}{{booking.client_phone}}
+{% else %} <i>ej angivet</i>
+{% endif %}</td>
 </tr>
 
 {% endblock %}
