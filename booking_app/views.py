@@ -84,10 +84,8 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     time = get_object_or_404(Time, pk=time_id)
-
-    print "test", visit
-
     return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
+
 
 
 
