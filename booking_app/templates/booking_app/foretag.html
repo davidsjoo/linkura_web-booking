@@ -1,11 +1,6 @@
-<html>
+{% extends "booking_app/base.html" %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
-
-<head></head>
-
-<body>
+{% block body %}
 
 <div id="rubrik">Företag </div><br />
 
@@ -17,6 +12,4 @@
     {% endfor %}
 </table>
 
-</body>
-
-</html>
+{% endblock %}

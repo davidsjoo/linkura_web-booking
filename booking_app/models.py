@@ -31,8 +31,8 @@ class Booking(models.Model):
 	time = models.ForeignKey(Time)
 	client_firstname = models.CharField(max_length=50)
 	client_lastname = models.CharField(max_length=50)
-	client_mail = models.EmailField(max_length=100)
-	client_phone = models.CharField(max_length=50)
+	client_mail = models.EmailField(max_length=100, blank=True)
+	client_phone = models.CharField(max_length=50, blank=True)
 	def __str__(self):
 		return self.client_firstname
 

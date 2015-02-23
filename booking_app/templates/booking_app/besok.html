@@ -1,11 +1,6 @@
-<html>
+{% extends "booking_app/base.html" %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
-
-<head></head>
-
-<body>
+{% block body %}
 
 <div id="rubrik">{{customer.customer_name}} </div><br />
 
@@ -26,6 +21,4 @@
     </tr>
 </table>
 
-</body>
-
-</html>
+{% endblock %}

@@ -1,6 +1,6 @@
 <label for="time{{ forloop.counter }}">	
 	<div id="tider_rubrik">{{ time.datetime|time:"H:i"}} - {{time.location}}</div>	{% for booking in time.booking_set.all %}
-	<div id="tider"><a href="{% url 'booking_app:bokningar' customer.id visit.id time.id booking.id %}">{{booking.client_firstname}} {{booking.client_lastname}}</a></div>
+	<div id="tider"><a href="{% url 'booking_app:bokningar' customer.id visit.id time.id booking.id %}">{{booking.client_firstname}} {{booking.client_lastname}}</a></div>{% empty %}<div id="tider">---</div>
 	{% endfor %}
 </label>
 

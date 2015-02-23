@@ -1,11 +1,7 @@
-<html>
+{% extends "booking_app/base.html" %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
+{% block body %}
 
-<head></head>
-
-<body>
 <div id="rubrik">{{customer.customer_name}} </div>
 <h2>Dina uppgifter</h2>
 
@@ -137,6 +133,4 @@
 <input type='submit' value='Byt tid'/>
 </form>
 
-</body>
-
-</html>
+{% endblock %}
