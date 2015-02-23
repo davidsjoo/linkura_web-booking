@@ -8,6 +8,10 @@
 <body>
 
 <h1>Tack för din bokning!!</h1>
+<p>Du är nu anmäld på följande tid och datum:</p>
+{{booking.id}}, {{customer}}, {{booking}}, {{time.datetime}}
+
+<p>Vänliga notera datumet i din kalender.</p>
 
 <p> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</p>
 <a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a><br /><br />
