@@ -1,11 +1,6 @@
-<html>
+{% extends "booking_app/base.html" %}
 
-{% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'booking_app/style.css' %}" />
-
-<head></head>
-
-<body>
+{% block body %}
 
 <div id="rubrik">Tack för din bokning!</div>
 <h3>Du är nu anmäld följande datum och tid:</h3>
@@ -19,7 +14,4 @@
 <h3> Vill du byta bokning och välja en annan tid, kan du klicka på länken här nedan.</h3>
 <a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">Byt bokningingen</a><br /><br />
 
-
-</body>
-
-</html>
+{% endblock %}
