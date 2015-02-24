@@ -1,3 +1,5 @@
+#coding: utf8 
+import os
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext, loader
@@ -11,6 +13,7 @@ from booking_app.models import Visit
 from booking_app.models import Time
 from booking_app.models import Booking
 from booking_app.forms import BookingForm
+
 
 
 def timelist(request, customer_id, visit_id, time_id):
@@ -127,7 +130,7 @@ def submit(request, customer_id, visit_id):
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
-                'form_error_message': "Du har inte fyllt i alla falt.",
+                'form_error_message': "Du har inte fyllt i alla fält.",
                 'customer': customer,
                 'form': form,
                 })

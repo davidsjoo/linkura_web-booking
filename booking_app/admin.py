@@ -1,3 +1,5 @@
+#coding: utf8 
+import os
 from django.contrib import admin
 from booking_app.models import Customer, Visit, Time, Booking
 

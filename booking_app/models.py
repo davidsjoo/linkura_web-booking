@@ -1,6 +1,7 @@
+#coding: utf8 
+import os
 from django.db import models
 from django.forms import ModelForm
-
 
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
@@ -24,8 +25,6 @@ class Time(models.Model):
 		return "%s" % self.datetime
 	class Meta:
 		ordering = ['datetime']
-	def time_list3(self):
-		return Time.objects.filter(datetime__week_day=2)[:1].get()
 
 class Booking(models.Model):
 	time = models.ForeignKey(Time)
