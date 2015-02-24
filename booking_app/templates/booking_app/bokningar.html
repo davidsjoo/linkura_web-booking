@@ -4,7 +4,7 @@
 
 <div id="rubrik">Kontaktuppgifter för {{booking.client_firstname}} {{booking.client_lastname}}</div><br />
 
-<table width="30%" align="left" >
+<table width="30%" align="bottom" >
 <tr>
 	<th>Mailadress</th>
 </tr>
@@ -21,5 +21,7 @@
 {% else %} <i>ej angivet</i>
 {% endif %}</td>
 </tr>
+</table><br />
+<a href="{% url 'booking_app:tider' customer.id visit.id %}">Tillbaka</a>
 
 {% endblock %}

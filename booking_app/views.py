@@ -15,7 +15,6 @@ from booking_app.models import Booking
 from booking_app.forms import BookingForm
 
 
-
 def timelist(request, customer_id, visit_id, time_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
@@ -60,8 +59,6 @@ class BookingsView(generic.ListView):
     context_object_name = 'bookinglist'
     def get_queryset(self):
         client = Booking.objects.all()
-
-        
         result_list = list(chain(client))
         return result_list
 
@@ -72,16 +69,11 @@ def update_booking(request, customer_id, visit_id, booking_id):
     form = BookingForm(request.POST or None)
     return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
 
-
 def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
     form = BookingForm(request.POST or None)
     return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
-
-#class ResultsView(generic.DetailView):
- #   model = Customer
-  #  template_name = 'booking_app/results.html'
 
 def results(request, customer_id, visit_id, time_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
@@ -89,9 +81,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
     time = get_object_or_404(Time, pk=time_id)
     return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
-
-
-
 
 class VisitView(generic.DetailView):
     model = Customer
@@ -134,7 +123,6 @@ def submit(request, customer_id, visit_id):
                 'customer': customer,
                 'form': form,
                 })
-
 
 def new_submit(request, customer_id, visit_id, booking_id):
     p = get_object_or_404(Visit, pk=visit_id)
