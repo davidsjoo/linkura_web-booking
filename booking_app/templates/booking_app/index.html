@@ -4,9 +4,16 @@
 <div id="rubrik">Företag </div><br />
 
 <table width="100%" align="left">
-    {% for customer in latest_customer_list %}
-        <tr>
+	<tr>
+        <th>Företag</th>
+        <th>Skapad</th>
+    </tr>
+    <tr>
+    	{% for customer in latest_customer_list %}
+
             <td><a href="{% url 'booking_app:visit' customer.id %}">{{ customer.customer_name }}</a></td>
+            <td>{{customer.created_date|date:"d/n/Y"}}</td>
+
         </tr>
     {% endfor %}
 </table>

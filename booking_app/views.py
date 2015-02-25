@@ -25,13 +25,13 @@ class IndexView(generic.ListView):
     template_name = 'booking_app/index.html'
     context_object_name = 'latest_customer_list'
     def get_queryset(self):
-        return Customer.objects.order_by('customer_name')[:5]
+        return Customer.objects.order_by('-created_date')
 
 class CustomerView(generic.ListView):
     context_object_name = 'latest_customer_list'
     template_name = 'booking_app/foretag.html'
     def get_queryset(self):
-        return Customer.objects.order_by('customer_name')[:5]
+        return Customer.objects.order_by('-created_date')
 
 def besok(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)

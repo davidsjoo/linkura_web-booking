@@ -6,6 +6,8 @@ from booking_app.models import Customer, Visit, Time, Booking
 class TimeInline(admin.TabularInline):
     model = Time
 
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ('customer_name', 'created_date')
 
 class VisitAdmin(admin.ModelAdmin):
     fieldsets = [
@@ -20,7 +22,7 @@ class BookingAdmin(admin.ModelAdmin):
     
 
 
-admin.site.register(Customer)
+admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Visit, VisitAdmin)
 admin.site.register(Time)
 admin.site.register(Booking, BookingAdmin)
