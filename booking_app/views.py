@@ -7,6 +7,12 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
+from django.conf import settings
+
+import pytz
+import datetime
+
 
 from booking_app.models import Customer
 from booking_app.models import Visit
@@ -111,6 +117,18 @@ def submit(request, customer_id, visit_id):
                 client_mail = request.POST['client_mail']
                 create_booking = Booking.objects.create(time = time, client_firstname = client_firstname, client_lastname = client_lastname, client_phone = client_phone, client_mail = client_mail)
                 booking = create_booking.id
+
+                link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+str(booking)
+
+                your_booking = str(selected_time.datetime)
+
+                subject = 'Bokning av tid'
+                message = 'Tack for din bokning! \nDu ar inbokad '+ your_booking + '\n\nOm du vill byta tid, ga in pa den har lanken \n'+ link
+                from_email = settings.EMAIL_HOST_USER
+                to_email = [client_mail]
+
+                send_mail(subject, message, from_email, to_email, fail_silently=False)
+
                 return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking,)))
             else:
                 return render(request, 'booking_app/detail.html', {
@@ -149,6 +167,18 @@ def new_submit(request, customer_id, visit_id, booking_id):
         get_time = Booking.objects.get(pk=booking.id)
         get_time.time = selected_time
         #get_time.client_firstname = request.POST['client_firstname']
-        #get_time.save()
+        get_time.save()
         time_id = selected_time.id
+        mail = booking.client_mail
+
+        link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
+
+        your_booking = str(selected_time.datetime)
+        print your_booking
+        subject = 'Bokning av tid'
+        message = 'Tack for din bokning! \nDu ar inbokad '+ your_booking + '\n\nOm du vill byta tid, ga in pa den har lanken \n'+ link
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [mail]
+
+        send_mail(subject, message, from_email, to_email, fail_silently=False)
         return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking.id,)))
