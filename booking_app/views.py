@@ -82,10 +82,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     time = get_object_or_404(Time, pk=time_id)
     return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
 
-class VisitView(generic.DetailView):
-    model = Customer
-    template_name = 'booking_app/visit.html'
-
 def submit(request, customer_id, visit_id):
     p = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)

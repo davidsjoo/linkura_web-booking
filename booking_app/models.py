@@ -11,7 +11,7 @@ class Customer(models.Model):
 class Visit(models.Model):
 	customer = models.ForeignKey(Customer)
 	visit_name = models.CharField(max_length=50)
-	visit_date = models.DateTimeField('Date')
+	visit_date = models.DateField('Date')
 	def __str__(self):
 		return self.visit_name
 
