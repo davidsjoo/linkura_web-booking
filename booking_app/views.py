@@ -13,7 +13,6 @@ from django.template.loader import render_to_string
 import pytz
 import datetime
 
-
 from booking_app.models import Customer
 from booking_app.models import Visit
 from booking_app.models import Time

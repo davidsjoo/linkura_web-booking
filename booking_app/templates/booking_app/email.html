@@ -1,6 +1,11 @@
 Tack för din bokning {{booking.client_firstname}} {{booking.client_lastname}}!
 
-Du är inbokad kl {{time.datetime|time:"H:i"}}, den {{time.datetime|date:"d/n"}}.
+Du är nu anmäld följande datum och tid: 
+{{time.datetime|date:"j/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}
+
+Information från coachen: 
+{{time.description}}
+
 Om du vill byta tid, tryck på länken nedan:
 {{link}}
 
