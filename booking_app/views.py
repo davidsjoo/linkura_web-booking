@@ -130,7 +130,7 @@ def submit(request, customer_id, visit_id):
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
-                'form_error_message': "Du har inte fyllt i alla fält.",
+                'form_error_message': "Du måste ange för- och efternamn",
                 'customer': customer,
                 'form': form,
                 })
