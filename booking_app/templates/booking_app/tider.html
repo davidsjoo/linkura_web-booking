@@ -29,6 +29,7 @@
                     {% endif %}
                 {% endifchanged %}
             {% endfor %}
+            </th>
         <th>Onsdag
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
@@ -75,6 +76,7 @@
 			{% endif %}
 		{% endfor %}
 		</td>
+        
 		<td>
 		{% for time in visit.time_set.all %}
 			{% if time.datetime|date:"l" == "Tuesday" %}

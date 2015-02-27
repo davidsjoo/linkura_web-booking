@@ -25,7 +25,7 @@ input, textarea {
 
 }
 div {
-    width:1000px;
+    width: 100%;
     float:left;
     font-size: 15px;
     font-family: "Arial";
@@ -35,7 +35,7 @@ div {
 	color: white;
 	float: center;
 	background: #288dc0;
-	width: auto;
+	width: 100%;
 	border: 1px solid;
 	border-color: #D8D8D8;
     padding: 3px;
@@ -46,22 +46,17 @@ div {
     color: black;
     float: center;
     background: #ffffff;
-    width: auto;
-    
-    border-top: 0px solid;
     border-color: #D8D8D8;
-    padding: 1px;
+    
 }
 
 #tider {
     font-size: 15px;
+    
     color: black;
-    float: center;
+    float: left;
     background: #ffffff;
-    width: auto;
-    border-bottom: 0px solid;
-    border-color: #D8D8D8;
-    padding-left: 15px;
+    padding-left: 0px;
 
 }
 
@@ -74,7 +69,7 @@ table{
 
 th,td
     {
-        margin: 0;
+        
         text-align: left;
         border-collapse: collapse;
         outline: 1px solid #D8D8D8;
@@ -88,6 +83,7 @@ th,td
 
     th
     {
+        text-align: center;
         background: #288dc0;
         color: white;
         padding: 5px 1px;

@@ -6,14 +6,14 @@ from django.forms import ModelForm
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
 	created_date = models.DateTimeField(auto_now=True)
-	def __str__(self):
+	def __unicode__(self):
 		return self.customer_name
 
 class Visit(models.Model):
 	customer = models.ForeignKey(Customer)
 	visit_name = models.CharField(max_length=50)
 	visit_date = models.DateField('Date')
-	def __str__(self):
+	def __unicode__(self):
 		return self.visit_name
 
 class Time(models.Model):
@@ -33,6 +33,6 @@ class Booking(models.Model):
 	client_lastname = models.CharField(max_length=50)
 	client_mail = models.EmailField(max_length=100, blank=True)
 	client_phone = models.CharField(max_length=50, blank=True)
-	def __str__(self):
+	def __unicode__(self):
 		return self.client_firstname
 
