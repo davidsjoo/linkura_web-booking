@@ -34,7 +34,7 @@
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
                     {% if time.datetime|date:"l" == "Monday" %}
-                    {{time.datetime|date:"d/m"}}
+                    {{time.datetime|date:"j/n"}}
                         {% for time in visit.time_set.all|slice:"1" %}
                         {% endfor %}
                     {% else %}
@@ -46,7 +46,7 @@
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
                     {% if time.datetime|date:"l" == "Tuesday" %}
-                    {{time.datetime|date:"d/m"}}
+                    {{time.datetime|date:"j/n"}}
                         {% for time in visit.time_set.all|slice:"1" %}
                         {% endfor %}
                     {% else %}
@@ -57,7 +57,7 @@
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
                     {% if time.datetime|date:"l" == "Wednesday" %}
-                    {{time.datetime|date:"d/m"}}
+                    {{time.datetime|date:"j/n"}}
                         {% for time in visit.time_set.all|slice:"1" %}
                         {% endfor %}
                     {% else %}
@@ -69,7 +69,7 @@
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
                     {% if time.datetime|date:"l" == "Thursday" %}
-                    {{time.datetime|date:"d/m"}}
+                    {{time.datetime|date:"j/n"}}
                         {% for time in visit.time_set.all|slice:"1" %}
                         {% endfor %}
                     {% else %}
@@ -81,7 +81,7 @@
             {% for time in visit.time_set.all %}
                 {% ifchanged %}
                     {% if time.datetime|date:"l" == "Friday" %}
-                    {{time.datetime|date:"d/m"}}
+                    {{time.datetime|date:"j/n"}}
                         {% for time in visit.time_set.all|slice:"1" %}
                         {% endfor %}
                     {% else %}
