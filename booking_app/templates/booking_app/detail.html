@@ -6,10 +6,12 @@
 
 <div id="rubrik">{{customer.customer_name}} </div>
 
+<h2>Fyll i dina kontaktuppgifter</h2>
+
 <form action="{% url 'booking_app:submit' customer.id visit.id %}" method="post">
 {% csrf_token %}
 
-<h2>Fyll i dina kontaktuppgifter</h2>
+
 
 <table width="100%" align="bottom">
 <tr>
