@@ -4,7 +4,7 @@
 
 <div id="rubrik">{{customer.customer_name}} </div><br />
 
-<table width="100%" align="left">
+<table width="100%" align="bottom">
     <tr>
     	<th>Besök</th>
     	<th>Dag</th>
@@ -19,6 +19,7 @@
     	<td>{{visit.visit_date|date:"Y"}}</td>
     {% endfor %}
     </tr>
-</table>
+</table><br />
 
+<a href="{% url 'booking_app:foretag' %}">Tillbaka till företag</a>
 {% endblock %}
