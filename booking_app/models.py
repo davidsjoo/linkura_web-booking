@@ -27,6 +27,9 @@ class Time(models.Model):
 	def time_list3(self):
 		return Time.objects.filter(datetime__week_day=2)[:1].get()
 
+	def is_capacity_filled(self):
+		return self.booking_set.all().count() >= self.capacity
+
 class Booking(models.Model):
 	time = models.ForeignKey(Time)
 	client_firstname = models.CharField(max_length=50)

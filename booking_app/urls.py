@@ -21,6 +21,5 @@ urlpatterns = patterns('booking_app.views',
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<booking_id>\d+)/$', views.update_booking, name='update_booking'),
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<time_id>\d+)/timelist/$', views.timelist, name='timelist'),
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<booking_id>\d+)/new_submit/$', views.new_submit, name='new_submit'),
-
     
 )
