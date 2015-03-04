@@ -82,11 +82,11 @@ def detail(request, customer_id, visit_id):
 	return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
 
 def results(request, customer_id, visit_id, time_id, booking_id):
-	customer = get_object_or_404(Customer, pk=customer_id)
-	visit = get_object_or_404(Visit, pk=visit_id)
-	booking = get_object_or_404(Booking, pk=booking_id)
-	time = get_object_or_404(Time, pk=time_id)
-	return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
+    customer = get_object_or_404(Customer, pk=customer_id)
+    visit = get_object_or_404(Visit, pk=visit_id)
+    booking = get_object_or_404(Booking, pk=booking_id)
+    time = get_object_or_404(Time, pk=time_id)
+    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
 
 
     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
