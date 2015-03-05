@@ -1,0 +1,39 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+
+<div id="rubrik">Företag </div>
+<h4>Lägg till nytt företag</h4>
+<form action="{% url 'booking_app:add_customer' %}" method="post">
+{% csrf_token %}
+<table width="100%" align="bottom">
+<tr>
+<th><label for="customer_name">Företagsnamn</label>{% csrf_token %}</th>
+</tr>
+<tr>
+<td>{{form.customer_name}}</td>
+</tr>
+</table>
+<input type='submit' value='Lägg till'/>
+</form>
+<h4>Företagslista</h4>
+<table width="100%" align="left">
+	<tr>
+        <th>Företag</th>
+        <th>Senast ändrad</th>
+        <th>Ändra företag</th>
+        <th>Ta bort företag</th>
+    </tr>
+    <tr>
+    	{% for customer in customer_list %}
+
+            <td><a href="{% url 'booking_app:new_visit' customer.id %}">{{ customer.customer_name }}</a></td>
+            <td>{{customer.created_date|date:"d/n/Y"}}</td>
+            <td><a href="{% url 'booking_app:customer_update' customer.id %}" STYLE="text-decoration: none"> ✎</a></td>
+            <td><a href="{% url 'booking_app:customer_delete' customer.id %}" STYLE="text-decoration: none">⊗</a></td>
+
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

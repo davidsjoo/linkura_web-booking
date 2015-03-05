@@ -1,0 +1,8 @@
+<input type="radio" {% if time.capacity <= 0 %}disabled{% endif %} name="time" id="time{{ forloop.counter }}" value="{{ time.id }}" />
+<label for="time{{ forloop.counter }}">
+	{% if time.capacity <= 0 %}<strike>{% endif %}
+	{{ time.datetime|time:"H:i"}} - {{time.location}}{% if time.capacity <= 0 %}</strike> FULLBOKAD{% endif %}
+	{% if time.capacity <= 0 %}{% endif %}
+</label>
+<br />
+

@@ -1,0 +1,9 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+<div id="rubrik">Coach index </div><br />
+
+<a href="{% url 'booking_app:foretag' %}">Visa bokningar</a><br />
+<a href="{% url 'booking_app:new_customer' %}">Skapa nytt</a>
+    
+{% endblock %}

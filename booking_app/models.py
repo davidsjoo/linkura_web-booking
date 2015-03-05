@@ -2,6 +2,7 @@
 import os
 from django.db import models
 from django.forms import ModelForm
+from django.core.urlresolvers import reverse
 
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
