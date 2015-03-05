@@ -4,6 +4,8 @@
 
 <div id="rubrik">{{customer.customer_name}} </div>
 <h2>Dina uppgifter</h2>
+<form action="{% url 'booking_app:new_submit' customer.id visit.id booking.id %}" method="post">
+{% csrf_token %}
 
 <table width="100%" align="bottom">
     <tr>
@@ -14,17 +16,15 @@
     </tr>
     <tr>
     	
-    	<td>{{booking.client_firstname}}</td>
-    	<td>{{booking.client_lastname}}</td>
-    	<td>{{booking.client_mail}}</td>
-    	<td>{{booking.client_phone}}</td>
+    	<td>{{form.client_firstname}}</td>
+    	<td>{{form.client_lastname}}</td>
+    	<td>{{form.client_mail}}</td>
+    	<td>{{form.client_phone}}</td>
     </tr>
 </table>
 
-
 <h2>Välj en ny tid i tabellen</h2>
-<form action="{% url 'booking_app:new_submit' customer.id visit.id booking.id %}" method="post">
-{% csrf_token %}
+
 <table width="100%" align="bottom">
     <tr>
         <th>Måndag 
@@ -130,7 +130,7 @@
 </tr>
 </table>
 <br />
-<input type='submit' value='Byt tid' />
+<input type='submit' value='Spara ändringar' />
 </form>
 
 {% endblock %}

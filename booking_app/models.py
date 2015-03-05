@@ -28,6 +28,9 @@ class Time(models.Model):
 	class Meta:
 		ordering = ['datetime']
 
+	def is_capacity_filled(self):
+		return self.booking_set.all().count() >= self.capacity
+
 class Booking(models.Model):
 	time = models.ForeignKey(Time)
 	client_firstname = models.CharField(max_length=50)
