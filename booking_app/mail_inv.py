@@ -34,7 +34,7 @@ def sendAppointment(self, subj, description):
 	alarm = icalendar.Alarm()
 	alarm.add("action", "DISPLAY")
 	alarm.add('description', "Reminder")
-	#alarm.add("trigger", dt.timedela(hours=-reminderHours))
+	#alarm.add("trigger", dt.timedelta(hours=-reminderHours))
 	# The only way to convince Outlook to do it correcty
 	alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminderHours))
 	event.add_component(alarm)
