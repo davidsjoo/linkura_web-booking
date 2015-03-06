@@ -32,7 +32,6 @@ class VisitDelete(DeleteView):
     def get_success_url(self):
         return reverse('booking_app:new_customer')
 
-
 class CustomerDelete(DeleteView):
     model = Customer
     success_url = '/booking_app/new_customer/'
@@ -48,11 +47,15 @@ class CustomerUpdate(UpdateView):
 
 class VisitUpdate(UpdateView):
     model = Visit
-    success_url = '/booking_app/new_customer/'
+    def get_success_url(self):
+        customer_id =  self.object.customer_id
+        return reverse('booking_app:new_visit', args={customer_id})
 
 class TimeUpdate(UpdateView):
     model = Time
-    success_url = '/booking_app/new_customer/'
+    def get_success_url(self):
+        customer_id =  self.object.customer_id
+        return reverse('booking_app:new_visit', args={customer_id})
 
 def new_time(request, visit_id, customer_id):
     visit = get_object_or_404(Visit, pk=visit_id)
@@ -65,7 +68,6 @@ def timelist(request, customer_id, visit_id, time_id):
 	customer = get_object_or_404(Customer, pk=customer_id)
 	time = get_object_or_404(Time, pk=time_id)
 	return render(request, 'booking_app/timelist.html', {'visit': visit, 'customer': customer, 'time': time})
-
 
 class IndexView(generic.ListView):
     template_name = 'booking_app/index.html'
@@ -128,7 +130,6 @@ class BookingsView(generic.ListView):
         result_list = list(chain(client))
         return result_list
 
-
 def update_booking(request, customer_id, visit_id, booking_id):
 	visit = get_object_or_404(Visit, pk=visit_id)
 	customer = get_object_or_404(Customer, pk=customer_id)
@@ -147,8 +148,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     time = get_object_or_404(Time, pk=time_id)
-    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
-
 
     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
     mail = booking.client_mail
@@ -213,19 +212,7 @@ def submit(request, customer_id, visit_id):
             
         })
 
-    else:
-        get_time_id = booking.time_id
-        old_time = Time.objects.get(pk=get_time_id)
-        old_time.capacity +=1
-        old_time.save()
-        selected_time.capacity -=1
-        selected_time.save()
-        get_time = Booking.objects.get(pk=booking.id)
-        get_time.time = selected_time
-        #get_time.client_firstname = request.POST['client_firstname']
-        get_time.save()
-        time_id = selected_time.id
-        return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking.id,)))
+    
 
 def add_time(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
@@ -272,19 +259,28 @@ def add_customer(request,):
             return HttpResponseRedirect(reverse('booking_app:new_customer',))
 
 def new_submit(request, customer_id, visit_id, booking_id):
-	p = get_object_or_404(Visit, pk=visit_id)
-	customer = get_object_or_404(Customer, pk=customer_id)
-	booking = get_object_or_404(Booking, pk=booking_id)
-	form = BookingForm(request.POST or None)
-	pub_from = request.GET.get('pub_date_from')
+    p = get_object_or_404(Visit, pk=visit_id)
+    customer = get_object_or_404(Customer, pk=customer_id)
+    booking = get_object_or_404(Booking, pk=booking_id)
+    form = BookingForm(request.POST or None)
+    pub_from = request.GET.get('pub_date_from')
 
-	get_time_id = booking.time_id
-	get_time = Booking.objects.get(pk=booking.id)
-	get_time.client_firstname = request.POST.get('client_firstname')
-	get_time.client_lastname = request.POST.get('client_lastname')
-	get_time.client_mail = request.POST.get('client_mail')
-	get_time.client_phone = request.POST.get('client_phone')
-	get_time.save()
-	time_id = booking.time_id
-	return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking_id,)))
+    #Hämtar id på nuvarnade bokning
+    get_time_id = booking.time_id
+    
+    #selected_time blir den nya tiden man har valt eller den man hade innan om man inte väljer någon tid.
+    selected_time = request.POST.get('time', get_time_id)
+    
+    #Hämtar id på selected time
+    new_time = Time.objects.get(pk=selected_time)
+
+    #Sparar allt
+    booking.time = new_time
+    booking.client_firstname = request.POST.get('client_firstname')
+    booking.client_lastname = request.POST.get('client_lastname')
+    booking.client_mail = request.POST.get('client_mail')
+    booking.client_phone = request.POST.get('client_phone')
+    booking.save()
+    
+    return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, new_time.id, booking_id,)))
 

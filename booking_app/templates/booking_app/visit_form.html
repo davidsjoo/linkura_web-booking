@@ -1,5 +1,7 @@
-<form action="" method="post">
+<form action="{% url 'booking_app:visit_update' visit.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit">
 </form>
+
+{{visit.id}}
