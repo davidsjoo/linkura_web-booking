@@ -91,7 +91,7 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Monday" %}
-		{% include "booking_app/time_form.html" %}
+		{% include "booking_app/time_template.html" %}
 	{% endif %}
 {% endfor %}
 </td>
@@ -99,7 +99,7 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Tuesday" %}
-		{% include "booking_app/time_form.html" %}
+		{% include "booking_app/time_template.html" %}
 	{% endif %}
 {% endfor %}
 </td>
@@ -107,7 +107,7 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Wednesday" %}
-		{% include "booking_app/time_form.html" %}
+		{% include "booking_app/time_template.html" %}
 	{% endif %}
 {% endfor %}
 </td>
@@ -115,7 +115,7 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Thursday" %}
-		{% include "booking_app/time_form.html" %}
+		{% include "booking_app/time_template.html" %}
 	{% endif %}
 {% endfor %}
 </td>
@@ -123,7 +123,7 @@
 <td>
 {% for time in visit.time_set.all %}
 	{% if time.datetime|date:"l" == "Friday" %}
-		{% include "booking_app/time_form.html" %}
+		{% include "booking_app/time_template.html" %}
 	{% endif %}
 {% endfor %}
 </td>
