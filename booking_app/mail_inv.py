@@ -32,7 +32,7 @@ def sendAppointment(self, subj, description):
 	event.add('created', tz.localize(dt.datetime.now()))
 
 	alarm = icalendar.Alarm()
-	alarm.ad("action", "DISPLAY")
+	alarm.add("action", "DISPLAY")
 	alarm.add('description', "Reminder")
 	#alarm.add("trigger", dt.timedela(hours=-reminderHours))
 	# The only way to convince Outlook to do it correcty
