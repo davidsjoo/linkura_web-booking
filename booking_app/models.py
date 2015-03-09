@@ -27,7 +27,6 @@ class Time(models.Model):
 		return "%s" % self.datetime
 	class Meta:
 		ordering = ['datetime']
-
 	def is_capacity_filled(self):
 		return self.booking_set.all().count() >= self.capacity
 

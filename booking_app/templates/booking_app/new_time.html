@@ -3,27 +3,7 @@
 {% block body %}
 
 <div id="rubrik">{{visit.customer}} - {{visit.visit_name}} </div>
-<h4>Lägg till ny tid</h4>
-<form action="{% url 'booking_app:add_time' customer.id visit.id %}" method="post">
-{% csrf_token %}
 
-
-<table width="100%" align="bottom">
-<tr>
-<th><label for="client_firstname">Datum och tid (tex: 2015-02-16 09:00) </label>{% csrf_token %}</th>
-<th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
-<th><label for="client_phone">Plats </label>{% csrf_token %}</th>
-<th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
-</tr>
-<tr>
-<td>{{form.datetime}}</td>
-<td>{{form.capacity}}</td>
-<td>{{form.location}}</td>
-<td>{{form.description}}</td>
-</tr>
-</table>
-
-<input type='submit' value='Lägg till' />
 <h4>Tider som redan finns i detta besök</h4>
 <table width="100%" align="center" >
         <tr>
@@ -132,8 +112,31 @@
 {% endfor %}
 </td>
 </tr>
-</table><br />
+</table>
 
-<h4><a href="{% url 'booking_app:new_visit' customer.id %}">Tillbaka till besök</a></h4>
+<h4>Lägg till ny tid</h4>
+<form action="{% url 'booking_app:add_time' visit.id %}" method="post">
+{% csrf_token %}
+
+
+<table width="100%" align="bottom">
+<tr>
+<th><label for="client_firstname">Datum och tid (tex: 2015-02-16 09:00) </label>{% csrf_token %}</th>
+<th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
+<th><label for="client_phone">Plats </label>{% csrf_token %}</th>
+<th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
+</tr>
+<tr>
+<td>{{form.datetime}}</td>
+<td>{{form.capacity}}</td>
+<td>{{form.location}}</td>
+<td>{{form.description}}</td>
+</tr>
+</table>
+
+<input type='submit' value='Lägg till' />
+</form>
+
+<h4><a href="{% url 'booking_app:new_visit' customer_id %}">&#8656; Tillbaka till besök</a></h4>
 
 {% endblock %}

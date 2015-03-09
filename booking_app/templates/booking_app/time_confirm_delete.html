@@ -1,6 +1,14 @@
-Är du säker på att du vill ta bort {{time.datetime}}?
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+
+Är du säker på att du vill ta bort {{time.datetime|time:"H:i"}} från den {{time.datetime|date:"j/n"}}?
 
 <form action="" method="post">
     {% csrf_token %}
     <input type="submit" value="Ta bort">
 </form>
+
+<h4><a href="javascript:history.go(-1)">&#8656; Tillbaka</a></h4>
+
+{% endblock %}

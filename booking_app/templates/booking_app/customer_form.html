@@ -1,5 +1,13 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <input type="submit" value="Slutför">
 </form>
+
+<h4><a href="{% url 'booking_app:coach_index' %}">&#8656; Tillbaka företag</a></h4>
+
+{% endblock %}

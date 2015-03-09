@@ -1,3 +1,6 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
 
 Är du säker på att du vill ta bort {{customer.customer_name}}?
 
@@ -6,3 +9,6 @@
     <input type="submit" value="Ta bort">
 </form>
 
+<h4><a href="{% url 'booking_app:coach_index' %}">&#8656; Tillbaka till företag</a></h4>
+
+{% endblock %}
