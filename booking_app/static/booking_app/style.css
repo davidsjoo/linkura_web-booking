@@ -6,6 +6,7 @@ li#hej {
    list-style-type: circle; 
 }
 
+
 body {
     color: black;
     	font  : 15px "Verdana", sans-serif;
@@ -55,10 +56,11 @@ div {
 }
 
 #tider {
-    font-size: 15px;
+    font-size: 14px;
     text-align: left;
     color: black;
     float: left;
+    
     background: #ffffff;
     padding-left: 10px;
     padding-top: 0px;

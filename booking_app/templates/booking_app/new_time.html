@@ -73,9 +73,8 @@
         <td>
         {% for time in visit.time_set.all %}
                 {% if time.datetime|date:"l" == "Monday" %}
-                <ul class="list-group">
+
                 {% include "booking_app/tider_form.html" %}
-                </ul>
             {% endif %}
         {% endfor %}
         </td>
@@ -123,7 +122,7 @@
 
 <table class="table1" width="100%" align="bottom">
 <tr>
-<th><label for="client_firstname">Datum och tid (tex: 2015-02-16 09:00) </label>{% csrf_token %}</th>
+<th><label for="client_firstname">Datum och tid </label>{% csrf_token %}</th>
 <th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
 <th><label for="client_phone">Plats </label>{% csrf_token %}</th>
 <th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
@@ -140,7 +139,5 @@
 </form>
 
 <h4><a href="{% url 'booking_app:new_visit' customer_id %}">&#8656; Tillbaka till besök</a></h4>
-
-
 
 {% endblock %}

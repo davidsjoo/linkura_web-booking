@@ -1,16 +1,16 @@
 
-
+<li class="">
 <label for="time{{ forloop.counter }}">
-	<li class="list-group-item active">{{ time.datetime|time:"H:i"}} - {{time.location}}
+	{{ time.datetime|time:"H:i"}} - {{time.location}}
 	<a href="{% url 'booking_app:time_update' time.id %}" STYLE="text-decoration: none"> ✎</a> 
-	<a href="{% url 'booking_app:time_delete' time.id %}" STYLE="text-decoration: none"> ⊗</a></li>
-	
+	<a href="{% url 'booking_app:time_delete' time.id %}" STYLE="text-decoration: none"> ⊗</a>
+	<br />
 	{% for booking in time.booking_set.all %}
-	<li class="list-group-item"><a href="{% url 'booking_app:bokningar' time.id booking.id %}">{{booking.client_firstname}} {{booking.client_lastname}}</a></li>
-	
-	{% empty %}<li class="list-group-item">---</li>
+	<div id="tider"><a href="{% url 'booking_app:bokningar' time.id booking.id %}">{{booking.client_firstname}} {{booking.client_lastname}}</a></div>
+	<br />
+	{% empty %}<div id="tider">---</div>
 	{% endfor %}
 </label>
-
+</li>
 
 
