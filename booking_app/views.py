@@ -125,7 +125,7 @@ def add_time(request, visit_id):
                 'form': form,
                 'customer_id': customer_id})
         else:
-            return HttpResponseRedirect(reverse('booking_app:new_time', args=(customer.id, visit.id,)))
+            return HttpResponseRedirect(reverse('booking_app:new_time', args=(visit.id,)))
 
 class TimeUpdate(UpdateView):
     model = Time

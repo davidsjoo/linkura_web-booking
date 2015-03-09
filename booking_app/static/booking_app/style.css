@@ -1,3 +1,10 @@
+li {
+ list-style-type: none; 
+}
+
+li#hej {
+   list-style-type: circle; 
+}
 
 body {
     color: black;
@@ -49,7 +56,7 @@ div {
 
 #tider {
     font-size: 15px;
-    
+    text-align: left;
     color: black;
     float: left;
     background: #ffffff;
@@ -60,33 +67,7 @@ div {
 
 }
 
-table{
-    table-layout: fixed;
-    font-size: 15px;
-    font-family: "Arial";
-}
 
-th,td
-    {
-        
-        text-align: left;
-        border-collapse: collapse;
-        outline: 1px solid #D8D8D8;
-    }
-
-    td
-    {
-        padding: 5px 1px;
-
-    }
-
-    th
-    {
-        text-align: left;
-        background: #288dc0;
-        color: white;
-        padding: 5px 1px;
-    }
 
 
 
