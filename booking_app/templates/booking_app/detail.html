@@ -1,8 +1,7 @@
 {% extends "booking_app/base.html" %}
 
 {% block body %}
-{% if time_error_message %}<h2>{{ time_error_message }}</h2>{% endif %}
-{% if form_error_message %}<h2>{{ form_error_message }}</h2>{% endif %}
+
 
 <div id="rubrik">{{customer.customer_name}} </div>
 
@@ -136,10 +135,23 @@
     </div>
 </form>
 
-{% for time in visit.time_set.all %}
-{% if time.is_capacity_filled %}
-aa
+{% if time_error_message %}
+<script type="text/javascript">
+window.alert("Du har inte valt en tid")
+</script>
 {% endif %}
-{% endfor %}
+
+{% if form_error_message %}
+<script type="text/javascript">
+window.alert("Du har inte fyllt i alla obligatoriska fält")
+</script>
+{% endif %}
+
+{% if capacity_error_message %}
+<script type="text/javascript">
+window.alert("Tyvärr har någon redan valt den tiden!")
+</script>
+{% endif %}
+
 
 {% endblock %}

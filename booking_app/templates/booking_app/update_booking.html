@@ -3,14 +3,14 @@
 {% block body %}
 
 <div id="rubrik">{{customer.customer_name}} </div>
-<h2>Dina uppgifter</h2>
+<h4>Dina kontaktuppgifter</h4>
 <form action="{% url 'booking_app:new_submit' customer.id visit.id booking.id %}" method="post">
 {% csrf_token %}
 
 <table width="100%" align="bottom">
     <tr>
-    	<th>Förnamn</th>
-    	<th>Efternamn</th>
+    	<th>Förnamn *</th>
+    	<th>Efternamn *</th>
     	<th>Mailadress</th>
     	<th>Mobilnummer</th>
     </tr>
@@ -23,7 +23,7 @@
     </tr>
 </table>
 
-<h2>Välj en ny tid i tabellen</h2>
+<h4>Välj en ny tid i tabellen</h4>
 
 <table width="100%" align="bottom">
     <tr>
@@ -132,5 +132,11 @@
 <br />
 <input type='submit' value='Spara ändringar' />
 </form>
+
+{% if error_message %}
+<script type="text/javascript">
+window.alert("Tyvärr har någon redan valt den tiden!")
+</script>
+{% endif %}
 
 {% endblock %}

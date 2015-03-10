@@ -164,6 +164,15 @@ def submit(request, customer_id, visit_id):
     else:
         if request.method == 'POST':
             if form.is_valid():
+                count_bookings = selected_time.booking_set.all().count()
+                print count_bookings
+                if count_bookings == selected_time.capacity:
+                    return render(request, 'booking_app/detail.html', {
+                    'visit': p,
+                    'capacity_error_message': "Tyvärr har någon redan bokat den tiden",
+                    'customer': customer,
+                    'form': form,
+                    })
                 time_id = selected_time.id
                 time = Time.objects.get(id=time_id)
                 client_firstname = request.POST['client_firstname']
@@ -194,11 +203,20 @@ def new_submit(request, customer_id, visit_id, booking_id):
     
     #selected_time blir den nya tiden man har valt eller den man hade innan om man inte väljer någon tid.
     selected_time = request.POST.get('time', get_time_id)
-    
+
     #Hämtar tiden selected time
     new_time = Time.objects.get(pk=selected_time)
+
+    #Om man har bytt tid
+    if get_time_id != new_time.id:
+        count_bookings = new_time.booking_set.all().count()
+
+        #Om någon har bokat den tiden redan, medans du valde tid
+        if count_bookings == new_time.capacity:
+            return render(request, 'booking_app/update_booking.html',{
+                'visit': p, 'customer': customer, 'booking': booking, 'form': form, 'error_message': "Tyvärr har någon redan valt den tiden",
+                })
     
-    #Sparar allt
     booking.time = new_time
     booking.client_firstname = request.POST.get('client_firstname')
     booking.client_lastname = request.POST.get('client_lastname')
