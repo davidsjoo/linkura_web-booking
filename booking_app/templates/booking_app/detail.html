@@ -136,4 +136,10 @@
     </div>
 </form>
 
+{% for time in visit.time_set.all %}
+{% if time.is_capacity_filled %}
+aa
+{% endif %}
+{% endfor %}
+
 {% endblock %}

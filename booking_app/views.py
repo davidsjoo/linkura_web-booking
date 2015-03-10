@@ -164,8 +164,8 @@ def submit(request, customer_id, visit_id):
     else:
         if request.method == 'POST':
             if form.is_valid():
-                selected_time.capacity -=1
-                selected_time.save()
+                if is_capacity_filled:
+                    print selected_time
                 time_id = selected_time.id
                 time = Time.objects.get(id=time_id)
                 client_firstname = request.POST['client_firstname']
@@ -182,12 +182,7 @@ def submit(request, customer_id, visit_id):
                 'customer': customer,
                 'form': form,
                 })
-        return render(request, 'booking_app/update_booking.html', {
-            'visit': p,
-            'time_error_message': "Du har inte valt en tid.", 
-            'customer': customer,
-            'booking': booking,
-        })
+        
 
 def new_submit(request, customer_id, visit_id, booking_id):
     p = get_object_or_404(Visit, pk=visit_id)
@@ -202,8 +197,9 @@ def new_submit(request, customer_id, visit_id, booking_id):
     #selected_time blir den nya tiden man har valt eller den man hade innan om man inte väljer någon tid.
     selected_time = request.POST.get('time', get_time_id)
     
-    #Hämtar id på selected time
+    #Hämtar tiden selected time
     new_time = Time.objects.get(pk=selected_time)
+    
     
     #Sparar allt
     booking.time = new_time
