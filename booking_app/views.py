@@ -164,8 +164,6 @@ def submit(request, customer_id, visit_id):
     else:
         if request.method == 'POST':
             if form.is_valid():
-                if is_capacity_filled:
-                    print selected_time
                 time_id = selected_time.id
                 time = Time.objects.get(id=time_id)
                 client_firstname = request.POST['client_firstname']
@@ -199,7 +197,6 @@ def new_submit(request, customer_id, visit_id, booking_id):
     
     #Hämtar tiden selected time
     new_time = Time.objects.get(pk=selected_time)
-    
     
     #Sparar allt
     booking.time = new_time
