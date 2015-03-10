@@ -8,12 +8,12 @@ Du är nu anmäld följande datum och tid:
 <h3>{{time.datetime|date:"j/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}</h3>
 <b>Information från coachen:</b><br />
 {{time.description}}<br /><br />
-<b>Dina uppgifter: </b><br />
+<b>Dina kontaktuppgifter: </b><br />
 {{booking.client_firstname}} {{booking.client_lastname}}<br />
-{% if booking.client_mail %}{{booking.client_mail}}
+Mailadress: {% if booking.client_mail %}{{booking.client_mail}}
 {% else %} <i>ej angiven</i>
 {% endif %}<br />
-{% if booking.client_phone %}{{booking.client_phone}}
+Mobilnummer: {% if booking.client_phone %}{{booking.client_phone}}
 {% else %} <i>ej angivet</i>
 
 {% endif %}<br /><br />
