@@ -6,7 +6,7 @@
 	<a href="{% url 'booking_app:time_delete' time.id %}" STYLE="text-decoration: none"> ⊗</a>
 	<br />
 	{% for booking in time.booking_set.all %}
-	<div id="tider"><a href="{% url 'booking_app:bokningar' time.id booking.id %}">{{booking.client_firstname}} {{booking.client_lastname}}</a></div>
+	<div id="tider"><a href="{% url 'booking_app:bokningar' time.id booking.id %}"><p class="normal">{{booking.client_firstname}} {{booking.client_lastname}}</p></a></div>
 	<br />
 	{% empty %}<div id="tider">---</div>
 	{% endfor %}
