@@ -180,33 +180,7 @@ textarea {
 optgroup {
   font-weight: bold;
 }
-table{
-    table-layout: fixed;
-    font-size: 15px;
-    font-family: "Arial";
-}
 
-th,td
-    {
-        
-        text-align: left;
-        border-collapse: collapse;
-        outline: 1px solid #D8D8D8;
-    }
-
-    td
-    {
-        padding: 5px 5px;
-
-    }
-
-    th
-    {
-        text-align: left;
-        background: #288dc0;
-        color: white;
-        padding: 5px 5px;
-    }
 /*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
 @media print {
   *,

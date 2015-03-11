@@ -3,114 +3,120 @@
     
 {% block body %}
 
+
+
 <div id="rubrik">{{visit.customer}} - {{visit.visit_name}} </div>
 
 <h4>Tider som redan finns i detta besök</h4>
 <table width="100%" align="bottom" >
-        <tr>
-        <th>Måndag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Monday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Tisdag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Tuesday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-            </th>
-        <th>Onsdag
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Wednesday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Torsdag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Thursday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Fredag
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Friday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-    </tr>
-    <tr>
-        <td>
-        {% for time in visit.time_set.all %}
-                {% if time.datetime|date:"l" == "Monday" %}
-
-                {% include "booking_app/tider_form.html" %}
+<tr><th>Måndag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Monday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
             {% endif %}
-        {% endfor %}
-        </td>
-        
-        <td>
-        {% for time in visit.time_set.all %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Tisdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
             {% if time.datetime|date:"l" == "Tuesday" %}
-                {% include "booking_app/tider_form.html" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
             {% endif %}
-        {% endfor %}
-        </td>
-
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Onsdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Wednesday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Torsdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Thursday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Fredag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Friday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}</th>
+</tr>
+<tr>
+<td>        
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Monday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
+<td>        
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Tuesday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
 <td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Wednesday" %}
-
-        {% include "booking_app/tider_form.html" %}
-
-    {% endif %}
-{% endfor %}
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Wednesday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
 </td>
 
 <td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Thursday" %}
-        {% include "booking_app/tider_form.html" %}
-    {% endif %}
-{% endfor %}
-</td>
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Thursday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
 
+</td>
 <td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Friday" %}
-        {% include "booking_app/tider_form.html" %}
-    {% endif %}
-{% endfor %}
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Friday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
 </td>
 </tr>
 </table>
@@ -132,6 +138,7 @@
 <td>{{form.capacity}}</td>
 <td>{{form.location}}</td>
 <td>{{form.description}}</td>
+
 </tr>
 </table>
 

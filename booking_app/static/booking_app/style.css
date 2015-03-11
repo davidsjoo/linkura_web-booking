@@ -1,3 +1,5 @@
+
+
 li {
  list-style-type: none; 
 }
@@ -37,6 +39,7 @@ div {
     
     font-size: 15px;
     font-family: "Arial";
+
 }
 #rubrik{
 	font-size: 30px;
@@ -71,8 +74,39 @@ div {
     padding-right: 0px;
 
 }
+#empty {
+display: none;
+}
 
+table{
+    table-layout: fixed;
+    font-size: 15px;
+    font-family: "Arial";
 
+}
 
+th,td
+    {
+        
+        text-align: left;
+        border-collapse: collapse;
+        outline: 1px solid #D8D8D8;
+
+    }
+
+    td
+    {
+        padding: 5px 5px;
+        
+    }
+
+    th
+    {
+        
+        background: #288dc0;
+        color: white;
+        padding: 5px 5px;
+        
+    }
 
 

@@ -1,3 +1,4 @@
+
 <input type="radio" {% if time.is_capacity_filled %}disabled{% endif %} name="time" id="time{{ forloop.counter }}" value="{{ time.id }}" />
 <label for="time{{ forloop.counter }}">
 	{% if time.is_capacity_filled %}
@@ -6,4 +7,3 @@
 {% endif %}
 </label>
 <br />
-

@@ -100,6 +100,7 @@ def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
     form = BookingForm(request.POST or None)
+
     return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
 
 def new_time(request, visit_id):
