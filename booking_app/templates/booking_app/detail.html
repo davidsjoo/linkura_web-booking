@@ -14,16 +14,17 @@
 
 <table width="100%" align="bottom">
 <tr>
-<th><label for="client_firstname">Förnamn * </label>{% csrf_token %}</th>
-<th><label for="client_lastname">Efternamn * </label>{% csrf_token %}</th>
-<th><label for="client_phone">Mobilnummer </label>{% csrf_token %}</th>
-<th><label for="client_mail">Mailadress </label>{% csrf_token %}</th>
+        <th>Förnamn *</th>
+        <th>Efternamn *</th>
+        <th>Mailadress</th>
+        <th>Mobilnummer</th>
+
 </tr>
 <tr>
 <td>{{form.client_firstname}}</td>
 <td>{{form.client_lastname}}</td>
-<td>{{form.client_phone}}</td>
 <td>{{form.client_mail}}</td>
+<td>{{form.client_phone}}</td>
 </tr>
 </table>
 
