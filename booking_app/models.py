@@ -22,7 +22,7 @@ class Time(models.Model):
 	datetime = models.DateTimeField('Date and time')
 	capacity = models.IntegerField(default=1)
 	location = models.CharField(max_length=50)
-	description = models.TextField()
+	description = models.TextField(max_length=500)
 	def __unicode__(self):
 		return "%s" % self.datetime
 	class Meta:

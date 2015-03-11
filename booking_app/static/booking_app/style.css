@@ -109,4 +109,7 @@ th,td
         
     }
 
-
+#id_description {
+    width: 100%;
+    height: 100px;
+}
