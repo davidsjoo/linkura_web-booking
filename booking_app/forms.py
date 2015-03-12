@@ -16,9 +16,15 @@ class VisitForm(forms.ModelForm):
 	class Meta:
 		model = Visit
 		fields = ['visit_name', 'visit_date']
+		dateTimeOptions = {
+		'format': 'yyyy-mm-dd',
+		'autoclose': True,
+		'weekStart': 1,
+		'pickerPosition': 'bottom-left',
+		}
 		widgets = {
-            'visit_date': DateWidget(attrs={'id':"customer"}, usel10n = True, bootstrap_version=3)
-        }
+		'visit_date': DateWidget(options = dateTimeOptions, attrs={'id':"customer"}, bootstrap_version=3)
+		}
 
 class CustomerForm(forms.ModelForm):
 	class Meta:
@@ -27,10 +33,14 @@ class CustomerForm(forms.ModelForm):
 
 class TimeForm(forms.ModelForm):
     class Meta:
-        model = Time
- 
-        fields = ['datetime', 'capacity', 'location', 'description']
-        widgets = {
-            'datetime': DateTimeWidget(attrs={'id':"visit"}, usel10n = True, bootstrap_version=3)
-        }
+		model = Time
+		fields = ['datetime', 'capacity', 'location', 'description']
+		dateTimeOptions = {
+		'format': 'yyyy-mm-dd hh:ii',
+		'autoclose': True,
+		'weekStart': 1,
+		}
+		widgets = {
+		'datetime': DateTimeWidget(options = dateTimeOptions, attrs={'id':"visit"}, bootstrap_version=3, )
+		}
 

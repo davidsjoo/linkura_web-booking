@@ -14,7 +14,7 @@
     {% for visit in customer.visit_set.all %}
     <tr>
     	<td><a href="{% url 'booking_app:new_time' visit.id %}" >{{ visit.visit_name }}</a></td>
-    	<td>{{visit.visit_date|date:"j-n-Y"}}</td>
+    	<td>{{visit.visit_date|date:"Y-m-j"}}</td>
         <td><a href="{% url 'booking_app:visit_update' visit.id %}" STYLE="text-decoration: none">✎</a></td>
         <td><a href="{% url 'booking_app:visit_delete' visit.id %}" STYLE="text-decoration: none">⊗</a></td>
     {% endfor %}
