@@ -139,4 +139,10 @@ window.alert("Tyvärr har någon redan valt den tiden!")
 </script>
 {% endif %}
 
+{% if form_error_message %}
+<script type="text/javascript">
+window.alert("Du måste ange för- och efternamn")
+</script>
+{% endif %}
+
 {% endblock %}

@@ -198,33 +198,45 @@ def new_submit(request, customer_id, visit_id, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
     form = BookingForm(request.POST or None)
     pub_from = request.GET.get('pub_date_from')
-    
-    #Hämtar id på nuvarnade bokning
-    get_time_id = booking.time_id
-    
-    #selected_time blir den nya tiden man har valt eller den man hade innan om man inte väljer någon tid.
-    selected_time = request.POST.get('time', get_time_id)
+    if request.method == 'POST':
+        if form.is_valid():
+            
+            
+            #Hämtar id på nuvarnade bokning
+            get_time_id = booking.time_id
+            
+            #selected_time blir den nya tiden man har valt eller den man hade innan om man inte väljer någon tid.
+            selected_time = request.POST.get('time', get_time_id)
 
-    #Hämtar tiden selected time
-    new_time = Time.objects.get(pk=selected_time)
+            #Hämtar tiden selected time
+            new_time = Time.objects.get(pk=selected_time)
 
-    #Om man har bytt tid
-    if get_time_id != new_time.id:
-        count_bookings = new_time.booking_set.all().count()
+            #Om man har bytt tid
+            if get_time_id != new_time.id:
+                count_bookings = new_time.booking_set.all().count()
 
-        #Om någon har bokat den tiden redan, medans du valde tid
-        if count_bookings == new_time.capacity:
-            return render(request, 'booking_app/update_booking.html',{
-                'visit': p, 'customer': customer, 'booking': booking, 'form': form, 'error_message': "Tyvärr har någon redan valt den tiden",
-                })
-    
-    booking.time = new_time
-    booking.client_firstname = request.POST.get('client_firstname')
-    booking.client_lastname = request.POST.get('client_lastname')
-    booking.client_mail = request.POST.get('client_mail')
-    booking.client_phone = request.POST.get('client_phone')
-    booking.save()
-    return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, new_time.id, booking_id,)))
+                #Om någon har bokat den tiden redan, medans du valde tid
+                if count_bookings == new_time.capacity:
+                    return render(request, 'booking_app/update_booking.html',{
+                        'visit': p, 'customer': customer, 'booking': booking, 'form': form, 'error_message': "Tyvärr har någon redan valt den tiden",
+                        })
+            
+            booking.time = new_time
+            booking.client_firstname = request.POST.get('client_firstname')
+            booking.client_lastname = request.POST.get('client_lastname')
+            booking.client_mail = request.POST.get('client_mail')
+            booking.client_phone = request.POST.get('client_phone')
+            booking.save()
+            return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, new_time.id, booking_id,)))
+        else:
+            return render(request, 'booking_app/update_booking.html', {
+            'visit': p,
+            'form_error_message': "Du måste ange för- och efternamn",
+            'customer': customer,
+            'form': form,
+            'booking': booking,
+            'pub_from': pub_from,
+            })
 
 def update_booking(request, customer_id, visit_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
