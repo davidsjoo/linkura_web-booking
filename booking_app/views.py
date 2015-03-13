@@ -36,7 +36,10 @@ class IndexView(generic.ListView):
 def coach_index(request,):
     form = CustomerForm(request.POST or None)
     customer_list = Customer.objects.order_by('-created_date')
-    return render(request, 'booking_app/coach_index.html', {'form': form, 'customer_list': customer_list})
+    return render(request, 'booking_app/coach_index.html', {
+        'form': form, 
+        'customer_list': customer_list
+    })
 
 def add_customer(request,):
     form = CustomerForm(request.POST or None)
@@ -62,12 +65,17 @@ class CustomerDelete(DeleteView):
 #Visit
 def visit(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
-    return render(request, 'booking_app/visit.html', {'customer': customer})
+    return render(request, 'booking_app/visit.html', {
+        'customer': customer
+    })
 
 def new_visit(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     form = VisitForm(request.POST or None)
-    return render(request, 'booking_app/new_visit.html', {'customer': customer, 'form': form})
+    return render(request, 'booking_app/new_visit.html', {
+        'customer': customer, 
+        'form': form
+    })
 
 def add_visit(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
@@ -76,11 +84,18 @@ def add_visit(request, customer_id):
         if form.is_valid():
             visit_name = request.POST['visit_name']
             visit_date = request.POST['visit_date']
-            
-            Visit.objects.create(customer = customer, visit_name = visit_name, visit_date = visit_date)
-            return HttpResponseRedirect(reverse('booking_app:new_visit', args=(customer.id,)))
+            Visit.objects.create(
+                customer = customer,
+                visit_name = visit_name, 
+                visit_date = visit_date
+            )
+            return HttpResponseRedirect(reverse('booking_app:new_visit', 
+                args=(customer.id,)
+            ))
         else:
-            return HttpResponseRedirect(reverse('booking_app:new_visit', args=(customer.id,)))
+            return HttpResponseRedirect(reverse('booking_app:new_visit', 
+                args=(customer.id,)
+            ))
 
 class VisitUpdate(UpdateView):
     model = Visit
@@ -100,14 +115,21 @@ def detail(request, customer_id, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     customer = get_object_or_404(Customer, pk=customer_id)
     form = BookingForm(request.POST or None)
-
-    return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
+    return render(request, 'booking_app/detail.html', {
+        'visit': visit, 
+        'customer': customer, 
+        'form': form,
+    })
 
 def new_time(request, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     form = TimeForm(request.POST or None)
     customer_id = visit.customer_id
-    return render(request, 'booking_app/new_time.html', {'visit': visit, 'form': form, 'customer_id': customer_id})
+    return render(request, 'booking_app/new_time.html', {
+        'visit': visit, 
+        'form': form, 
+        'customer_id': customer_id
+    })
 
 def add_time(request, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
@@ -120,13 +142,21 @@ def add_time(request, visit_id):
             location = request.POST['location']
             description = request.POST['description']
             
-            Time.objects.create(visit = visit, datetime = datetime, capacity = capacity, location = location, description = description)
+            Time.objects.create(
+                visit = visit, 
+                datetime = datetime, 
+                capacity = capacity, 
+                location = location, 
+                description = description
+            )
             return render(request, 'booking_app/new_time.html', {
                 'visit': visit,
                 'form': form,
                 'customer_id': customer_id})
         else:
-            return HttpResponseRedirect(reverse('booking_app:new_time', args=(visit.id,)))
+            return HttpResponseRedirect(reverse('booking_app:new_time', 
+                args=(visit.id,)
+            ))
 
 class TimeUpdate(UpdateView):
     model = Time
@@ -146,7 +176,11 @@ def bokningar(request, time_id, booking_id):
     time = get_object_or_404(Time, pk=time_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     visit_id = time.visit_id
-    return render(request, 'booking_app/bokningar.html', {'time': time, 'booking': booking, 'visit_id': visit_id})
+    return render(request, 'booking_app/bokningar.html', {
+        'time': time, 
+        'booking': booking, 
+        'visit_id': visit_id
+    })
 
 def submit(request, customer_id, visit_id):
     p = get_object_or_404(Visit, pk=visit_id)
@@ -180,9 +214,17 @@ def submit(request, customer_id, visit_id):
                 client_lastname = request.POST['client_lastname']
                 client_phone = request.POST['client_phone']
                 client_mail = request.POST['client_mail']
-                create_booking = Booking.objects.create(time = time, client_firstname = client_firstname, client_lastname = client_lastname, client_phone = client_phone, client_mail = client_mail)
+                create_booking = Booking.objects.create(
+                    time = time, 
+                    client_firstname = client_firstname, 
+                    client_lastname = client_lastname, 
+                    client_phone = client_phone, 
+                    client_mail = client_mail
+                )
                 booking = create_booking.id
-                return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, time_id, booking,)))
+                return HttpResponseRedirect(reverse('booking_app:results', 
+                    args=(customer.id, p.id, time_id, booking,)
+                ))
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
@@ -218,8 +260,12 @@ def new_submit(request, customer_id, visit_id, booking_id):
                 #Om någon har bokat den tiden redan, medans du valde tid
                 if count_bookings == new_time.capacity:
                     return render(request, 'booking_app/update_booking.html',{
-                        'visit': p, 'customer': customer, 'booking': booking, 'form': form, 'error_message': "Tyvärr har någon redan valt den tiden",
-                        })
+                        'visit': p, 
+                        'customer': customer, 
+                        'booking': booking, 
+                        'form': form, 
+                        'error_message': "Tyvärr har någon redan valt den tiden",
+                    })
             
             booking.time = new_time
             booking.client_firstname = request.POST.get('client_firstname')
@@ -227,7 +273,8 @@ def new_submit(request, customer_id, visit_id, booking_id):
             booking.client_mail = request.POST.get('client_mail')
             booking.client_phone = request.POST.get('client_phone')
             booking.save()
-            return HttpResponseRedirect(reverse('booking_app:results', args=(customer.id, p.id, new_time.id, booking_id,)))
+            return HttpResponseRedirect(reverse('booking_app:results', 
+                args=(customer.id, p.id, new_time.id, booking_id,)))
         else:
             return render(request, 'booking_app/update_booking.html', {
             'visit': p,
@@ -243,7 +290,12 @@ def update_booking(request, customer_id, visit_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     form = BookingForm(request.POST or None, instance=booking)
-    return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
+    return render(request, 'booking_app/update_booking.html', {
+        'visit': visit, 
+        'customer': customer, 
+        'booking': booking, 
+        'form': form,
+    })
 
 def results(request, customer_id, visit_id, time_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
@@ -255,11 +307,24 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     mail = booking.client_mail
     from_email = settings.EMAIL_HOST_USER
     to_email = [mail]
-    msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
-    msg_html = render_to_string('booking_app/email.html', {'booking': booking, 'customer': customer, 'booking': booking, 'visit': visit, 'time': time, 'link': link})
+    msg_plain = render_to_string('booking_app/email.txt', {
+        'booking': booking
+    })
+    msg_html = render_to_string('booking_app/email.html', {
+        'booking': booking, 
+        'customer': customer, 
+        'booking': booking, 
+        'visit': visit, 
+        'time': time, 
+        'link': link})
     send_mail(msg_plain, msg_html, from_email, to_email, fail_silently=True)
 
-    return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
+    return render(request, 'booking_app/results.html', {
+        'visit': visit, 
+        'customer': customer, 
+        'booking': booking, 
+        'time': time,
+    })
 
 class BookingsView(generic.ListView):
     template_name = 'booking_app/bookinglist.html'

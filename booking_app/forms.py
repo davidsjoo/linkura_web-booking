@@ -10,7 +10,12 @@ from booking_app.models import Customer
 class BookingForm(forms.ModelForm):
 	class Meta:
 		model = Booking
-		fields = ['client_firstname', 'client_lastname', 'client_phone', 'client_mail']
+		fields = [
+			'client_firstname', 
+			'client_lastname', 
+			'client_phone', 
+			'client_mail'
+		]
 
 class VisitForm(forms.ModelForm):
 	class Meta:
@@ -23,7 +28,11 @@ class VisitForm(forms.ModelForm):
 		'pickerPosition': 'bottom-left',
 		}
 		widgets = {
-		'visit_date': DateWidget(options = dateTimeOptions, attrs={'id':"customer"}, bootstrap_version=3)
+			'visit_date': DateWidget(
+				options = dateTimeOptions, 
+				attrs={'id':"customer"}, 
+				bootstrap_version=3
+			)
 		}
 
 class CustomerForm(forms.ModelForm):
@@ -41,6 +50,10 @@ class TimeForm(forms.ModelForm):
 		'weekStart': 1,
 		}
 		widgets = {
-		'datetime': DateTimeWidget(options = dateTimeOptions, attrs={'id':"visit"}, bootstrap_version=3, )
+			'datetime': DateTimeWidget(
+				options = dateTimeOptions, 
+				attrs={'id':"visit"}, 
+				bootstrap_version=3, 
+			)
 		}
 

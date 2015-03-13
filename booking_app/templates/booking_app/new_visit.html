@@ -15,8 +15,10 @@
     <tr>
     	<td><a href="{% url 'booking_app:new_time' visit.id %}" >{{ visit.visit_name }}</a></td>
     	<td>{{visit.visit_date|date:"Y-m-j"}}</td>
-        <td><a href="{% url 'booking_app:visit_update' visit.id %}" STYLE="text-decoration: none">✎</a></td>
-        <td><a href="{% url 'booking_app:visit_delete' visit.id %}" STYLE="text-decoration: none">⊗</a></td>
+        <td><a href="{% url 'booking_app:visit_update' visit.id %}" STYLE="text-decoration: none">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+        <td><a href="{% url 'booking_app:visit_delete' visit.id %}" STYLE="text-decoration: none">
+        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
     {% endfor %}
     </tr>
 </table>
