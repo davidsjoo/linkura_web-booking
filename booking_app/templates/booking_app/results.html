@@ -1,9 +1,11 @@
 {% extends "booking_app/base.html" %}
 
 {% block body %}
-
+<table width="100%"><tr>
 <div id="rubrik">Tack för din bokning!</div><br />
 
+
+<td>
 Du är nu anmäld följande datum och tid:
 <h4>{{time.datetime|date:"j/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}</h4>
 <b>Information från coachen:</b><br />
@@ -23,5 +25,6 @@ och med information om hur du kan byta bokningen.
 
 
 <a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}"><b>Byt bokningen</b></a><br /><br />
-
+</td>
+</tr>
 {% endblock %}

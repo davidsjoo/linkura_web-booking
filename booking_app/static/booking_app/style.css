@@ -32,12 +32,14 @@ div {
 }
 
 #rubrik{
-	font-size: 30px;
+	font-size: 25px;
 	color: white;
 	background: #288dc0;
 	width: 100%;
 	border: 1px solid;
 	border-color: #D8D8D8;
+    padding: 5px;
+    font-weight: bold;
 }
 
 #tider_rubrik {
@@ -74,11 +76,11 @@ table {
 th,td {
     text-align: left;
     border-collapse: collapse;
-    outline: 1px solid #D8D8D8;
 }
 
 td {
     padding: 5px 5px;
+    outline: 1px solid #D8D8D8;
 }
 
 td:empty {
@@ -89,7 +91,9 @@ th {
     background: #288dc0;
     color: white;
     padding: 5px 5px; 
+    outline: 1px solid #D8D8D8;
 }
+
 
 .datetimepicker thead tr:first-child th:hover,
 .datetimepicker tfoot tr:first-child th:hover {
@@ -99,6 +103,25 @@ th {
 #id_description {
     width: auto;
     height: 100px;
+}
+
+h4 {
+  color: #000000;
+  font-size: 17px;
+  padding: 5px;
+}
+h5 {
+  color: #000000;
+  font-size: 15px;
+  padding: 5px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+
 }
 
 
