@@ -121,7 +121,22 @@ h5 {
   background-color: #288dc0;
   border-color: #D8D8D8;
   font-size: 17px;
+  border-radius: 0px;
 
 }
+.btn-primary:hover {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+  border-radius: 0px;
+}
 
+.btn-primary:active {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+  border-radius: 0px;
+}
 
