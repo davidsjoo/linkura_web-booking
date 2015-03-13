@@ -36,10 +36,11 @@ div {
 	color: white;
 	background: #288dc0;
 	width: 100%;
+  border-radius: 5px;
 	border: 1px solid;
 	border-color: #D8D8D8;
-    padding: 5px;
-    font-weight: bold;
+  padding: 5px;
+  font-weight: bold;
 }
 
 #tider_rubrik {
@@ -71,16 +72,19 @@ table {
     table-layout: fixed;
     font-size: 15px;
     font-family: "Arial";
+    border-radius: 5px;
 }
 
 th,td {
     text-align: left;
     border-collapse: collapse;
+
 }
 
 td {
     padding: 5px 5px;
     outline: 1px solid #D8D8D8;
+    border-radius: 5px;
 }
 
 td:empty {
@@ -140,3 +144,7 @@ h5 {
   border-radius: 0px;
 }
 
+p.text {
+    font-weight: normal;
+    padding: 5px;
+}
