@@ -21,7 +21,8 @@
 {% else %} <i>ej angivet</i>
 {% endif %}</td>
 </tr>
-</table><br />
-<h4><a href="{% url 'booking_app:new_time' customer.id visit.id %}">Tillbaka</a></h4>
+</table>
+
+<h5><a href="{% url 'booking_app:new_time' visit_id %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 
 {% endblock %}

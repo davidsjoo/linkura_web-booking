@@ -14,7 +14,7 @@
 <td>{{form.customer_name}}</td>
 </tr>
 </table>
-<input type='submit' value='Lägg till'/>
+<h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
 </form>
 <h4>Företagslista</h4>
 <table width="100%" align="left">
@@ -28,7 +28,7 @@
     	{% for customer in customer_list %}
 
             <td><a href="{% url 'booking_app:new_visit' customer.id %}">{{ customer.customer_name }}</a></td>
-            <td>{{customer.created_date|date:"d/n/Y"}}</td>
+            <td>{{customer.created_date|date:"Y-m-d"}}</td>
             <td><a href="{% url 'booking_app:customer_update' customer.id %}" STYLE="text-decoration: none"> ✎</a></td>
             <td><a href="{% url 'booking_app:customer_delete' customer.id %}" STYLE="text-decoration: none">⊗</a></td>
 

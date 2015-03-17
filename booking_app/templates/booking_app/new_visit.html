@@ -2,6 +2,27 @@
 
 {% block body %}
 <div id="rubrik">{{customer.customer_name}} </div>
+
+<h4>Besökslista</h4>
+<table width="100%" align="bottom">
+    <tr>
+    	<th>Besök</th>
+    	<th>Datum</th>
+    	<th>Ändra besök</th>
+    	<th>Ta bort besök</th>
+    </tr>
+    {% for visit in customer.visit_set.all %}
+    <tr>
+    	<td><a href="{% url 'booking_app:new_time' visit.id %}" >{{ visit.visit_name }}</a></td>
+    	<td>{{visit.visit_date|date:"Y-m-j"}}</td>
+        <td><a href="{% url 'booking_app:visit_update' visit.id %}" STYLE="text-decoration: none">
+        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a></td>
+        <td><a href="{% url 'booking_app:visit_delete' visit.id %}" STYLE="text-decoration: none">
+        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a></td>
+    {% endfor %}
+    </tr>
+</table>
+
 <h4>Lägg till nytt besök</h4>
 <form action="{% url 'booking_app:add_visit' customer.id %}" method="post">
 {% csrf_token %}
@@ -15,26 +36,9 @@
 <td>{{form.visit_date}}</td>
 </tr>
 </table>
-<input type='submit' value='Lägg till'/>
+<h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
 </form>
-<h4>Besökslista</h4>
-<table width="100%" align="bottom">
-    <tr>
-    	<th>Besök</th>
-    	<th>Datum</th>
-    	<th>Ändra besök</th>
-    	<th>Ta bort besök</th>
-    </tr>
-    {% for visit in customer.visit_set.all %}
-    <tr>
-    	<td><a href="{% url 'booking_app:new_time' customer.id visit.id %}">{{ visit.visit_name }}</a></td>
-    	<td>{{visit.visit_date|date:"l j"}}</td>
-        <td><a href="{% url 'booking_app:visit_update' visit.id %}" STYLE="text-decoration: none"> ✎</a></td>
-        <td><a href="{% url 'booking_app:visit_delete' visit.id %}" STYLE="text-decoration: none">⊗</a></td>
-    {% endfor %}
-    </tr>
-</table>
 
-<h4><a href="{% url 'booking_app:new_customer' %}">Tillbaka till företag</a></h4>
+<h5><a href="{% url 'booking_app:coach_index' %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 
 {% endblock %}

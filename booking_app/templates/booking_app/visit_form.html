@@ -1,7 +1,13 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+
 <form action="{% url 'booking_app:visit_update' visit.id %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit">
+    <h5><input type='submit' value='Ändra' button type="submit" class="btn btn-primary" /></h5>
 </form>
 
-{{visit.id}}
+<h5><a href="javascript:history.go(-1)"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+
+{% endblock %}

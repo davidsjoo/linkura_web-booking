@@ -1,16 +1,134 @@
 {% extends "booking_app/base.html" %}
 
+    
 {% block body %}
 
+
+
 <div id="rubrik">{{visit.customer}} - {{visit.visit_name}} </div>
+
+<h4>Tider som redan finns i detta besök</h4>
+<table width="100%" align="bottom" >
+<tr><th>Måndag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Monday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Tisdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Tuesday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Onsdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Wednesday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Torsdag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Thursday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}
+</th><th>Fredag
+    {% for time in visit.time_set.all %} 
+        {% ifchanged %}
+            {% if time.datetime|date:"l" == "Friday" %}
+                
+                     {{time.datetime|date:"j/n"}}
+                    {% for time in visit.time_set.all|slice:"1" %}{% endfor %}        
+                
+            {% else %}
+            {% endif %}
+        {% endifchanged %}
+    {% endfor %}</th>
+</tr>
+<tr>
+<td>        
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Monday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
+<td>        
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Tuesday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
+<td>
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Wednesday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
+
+<td>
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Thursday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+
+</td>
+<td>
+    {% for time in visit.time_set.all %}
+        {% if time.datetime|date:"l" == "Friday" %}
+            
+                {% include "booking_app/tider_form.html" %}
+            
+        {% endif %}
+    {% endfor %}
+</td>
+</tr>
+</table>
+
 <h4>Lägg till ny tid</h4>
-<form action="{% url 'booking_app:add_time' customer.id visit.id %}" method="post">
+<form action="{% url 'booking_app:add_time' visit.id %}" method="post">
 {% csrf_token %}
 
 
-<table width="100%" align="bottom">
+<table class="table1" width="100%" align="bottom">
 <tr>
-<th><label for="client_firstname">Datum och tid (tex: 2015-02-16 09:00) </label>{% csrf_token %}</th>
+<th><label for="client_firstname">Datum och tid </label>{% csrf_token %}</th>
 <th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
 <th><label for="client_phone">Plats </label>{% csrf_token %}</th>
 <th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
@@ -20,120 +138,13 @@
 <td>{{form.capacity}}</td>
 <td>{{form.location}}</td>
 <td>{{form.description}}</td>
+
 </tr>
 </table>
 
-<input type='submit' value='Lägg till' />
-<h4>Tider som redan finns i detta besök</h4>
-<table width="100%" align="center" >
-        <tr>
-        <th>Måndag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Monday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Tisdag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Tuesday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-            </th>
-        <th>Onsdag
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Wednesday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Torsdag 
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Thursday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-        <th>Fredag
-            {% for time in visit.time_set.all %}
-                {% ifchanged %}
-                    {% if time.datetime|date:"l" == "Friday" %}
-                    {{time.datetime|date:"j/n"}}
-                        {% for time in visit.time_set.all|slice:"1" %}
-                        {% endfor %}
-                    {% else %}
-                    {% endif %}
-                {% endifchanged %}
-            {% endfor %}
-        </th>
-    </tr>
-    <tr>
-        <td>
-        {% for time in visit.time_set.all %}
-                {% if time.datetime|date:"l" == "Monday" %}
+<h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
+</form>
 
-                {% include "booking_app/tider_form.html" %}
-            {% endif %}
-        {% endfor %}
-        </td>
-        
-        <td>
-        {% for time in visit.time_set.all %}
-            {% if time.datetime|date:"l" == "Tuesday" %}
-                {% include "booking_app/tider_form.html" %}
-            {% endif %}
-        {% endfor %}
-        </td>
-
-<td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Wednesday" %}
-
-        {% include "booking_app/tider_form.html" %}
-
-    {% endif %}
-{% endfor %}
-</td>
-
-<td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Thursday" %}
-        {% include "booking_app/tider_form.html" %}
-    {% endif %}
-{% endfor %}
-</td>
-
-<td>
-{% for time in visit.time_set.all %}
-    {% if time.datetime|date:"l" == "Friday" %}
-        {% include "booking_app/tider_form.html" %}
-    {% endif %}
-{% endfor %}
-</td>
-</tr>
-</table><br />
-
-<h4><a href="{% url 'booking_app:new_visit' customer.id %}">Tillbaka till besök</a></h4>
+<h5><a href="{% url 'booking_app:new_visit' customer_id %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 
 {% endblock %}

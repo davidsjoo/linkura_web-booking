@@ -1,7 +1,14 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
 
 Är du säker på att du vill ta bort {{visit.visit_name}}?
 
 <form action="" method="post">
     {% csrf_token %}
-    <input type="submit" value="Ta bort">
+    <h5><input type='submit' value='Ta bort' button type="submit" class="btn btn-primary" /></h5>
 </form>
+
+<h5><a href="javascript:history.go(-1)"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+
+{% endblock %}

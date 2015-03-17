@@ -38,7 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'booking_app',
-    'debug_toolbar'
+    'debug_toolbar',
+    'datetimewidget',
 )
 
 MIDDLEWARE_CLASSES = (

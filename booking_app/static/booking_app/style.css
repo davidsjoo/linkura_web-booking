@@ -1,3 +1,10 @@
+li {
+ list-style-type: none; 
+}
+
+p.normal {
+    font-weight: normal;
+}
 
 body {
     color: black;
@@ -7,36 +14,35 @@ body a {
     color: #1C1C1C;
 }
 
-
 form {
-
   width  : 100%;
   height : 100%;
   margin : 0px;
   border: none;
-
 }
 
 input, textarea {
   font    : .9em/1.5em "Arial", sans-serif;
   font-size: 15px;
-
 }
+
 div {
-    
     font-size: 15px;
     font-family: "Arial";
 }
+
 #rubrik{
-	font-size: 30px;
+	font-size: 25px;
 	color: white;
 	background: #288dc0;
 	width: 100%;
+  border-radius: 5px;
 	border: 1px solid;
 	border-color: #D8D8D8;
-    
-
+  padding: 5px;
+  font-weight: bold;
 }
+
 #tider_rubrik {
     font-size: 15px;
     font-weight: bold;
@@ -44,12 +50,11 @@ div {
     float: center;
     background: #ffffff;
     border-color: #D8D8D8;
-    
 }
 
 #tider {
     font-size: 15px;
-    
+    text-align: left;
     color: black;
     float: left;
     background: #ffffff;
@@ -57,36 +62,89 @@ div {
     padding-top: 0px;
     padding-bottom: 0px;
     padding-right: 0px;
-
 }
 
-table{
+#empty {
+display: none;
+}
+
+table {
     table-layout: fixed;
     font-size: 15px;
     font-family: "Arial";
+    border-radius: 5px;
 }
 
-th,td
-    {
-        
-        text-align: left;
-        border-collapse: collapse;
-        outline: 1px solid #D8D8D8;
-    }
+th,td {
+    text-align: left;
+    border-collapse: collapse;
 
-    td
-    {
-        padding: 5px 1px;
+}
 
-    }
+td {
+    padding: 5px 5px;
+    outline: 1px solid #D8D8D8;
+    border-radius: 5px;
+}
 
-    th
-    {
-        text-align: left;
-        background: #288dc0;
-        color: white;
-        padding: 5px 1px;
-    }
+td:empty {
+    visibility: hidden;
+}
+
+th {
+    background: #288dc0;
+    color: white;
+    padding: 5px 5px; 
+    outline: 1px solid #D8D8D8;
+}
 
 
+.datetimepicker thead tr:first-child th:hover,
+.datetimepicker tfoot tr:first-child th:hover {
+    background: #0F74A7;
+}
 
+#id_description {
+    width: auto;
+    height: 100px;
+}
+
+h4 {
+  color: #000000;
+  font-size: 17px;
+  padding: 5px;
+}
+h5 {
+  color: #000000;
+  font-size: 15px;
+  padding: 5px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+  border-radius: 0px;
+
+}
+.btn-primary:hover {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+  border-radius: 0px;
+}
+
+.btn-primary:active {
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #D8D8D8;
+  font-size: 17px;
+  border-radius: 0px;
+}
+
+p.text {
+    font-weight: normal;
+    padding: 5px;
+}
