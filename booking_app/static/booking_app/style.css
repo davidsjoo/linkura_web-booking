@@ -86,9 +86,7 @@ td {
     border-radius: 5px;
 }
 
-td:empty {
-    visibility: hidden;
-}
+
 
 th {
     background: #288dc0;
