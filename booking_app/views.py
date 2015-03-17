@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.views import generic
 from itertools import chain
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -16,6 +17,11 @@ from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.functional import lazy
+
+#from booking_app.mail_inv import sendAppointment
+import datetime as dt
+import icalendar
+import uuid
 
 from booking_app.models import Customer
 from booking_app.models import Visit
@@ -131,7 +137,7 @@ class BookingsView(generic.ListView):
         return result_list
 
 def update_booking(request, customer_id, visit_id, booking_id):
-	visit = get_object_or_404(Visit, pk=visit_id)
+	visit = get_object_or_404(Visit, pk=visit_id) 
 	customer = get_object_or_404(Customer, pk=customer_id)
 	booking = get_object_or_404(Booking, pk=booking_id)
 	form = BookingForm(request.POST or None, instance=booking)
@@ -145,17 +151,66 @@ def detail(request, customer_id, visit_id):
 
 def results(request, customer_id, visit_id, time_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+        #Customer: Företaget t.ex. Linkura
     visit = get_object_or_404(Visit, pk=visit_id)
+        #Visit: typ av möte t.ex. uppstart
     booking = get_object_or_404(Booking, pk=booking_id)
+        #Booking: Person uppgifter till den som bokat
     time = get_object_or_404(Time, pk=time_id)
+        #Time: Tiden man valt.
+
+    # Kalender inbjudan
+    tz = pytz.timezone("Europe/Stockholm")
+    reminderHours = 1
+    startHour = 7
+    start = time.datetime
+    cal = icalendar.Calendar()
+    cal.add('prodid', '-//My calendar application//example.com//') #Ändra!
+    cal.add('version', '2.0')
+    cal.add('method', "REQUEST")
+
+    event = icalendar.Event()
+    event.add('attendee', booking.client_mail)
+    event.add('organizer', "me@example.com") #Ändra till Linkuras mail
+    event.add('status', "confirmed") 
+    event.add('category', "Event")
+    event.add('summary', 'Möte med coach') #Ändra till något bättre
+    event.add('description', 'description') #Ändra eller använd email.html som description
+    event.add('location', time.location)
+    event.add('dtstart', start)
+    event.add('dtend', dt.time(startHour + 1, 0, 0))
+    event.add('dtstamp', start) #Indikerar tiden när kalender objektet skapades
+    event['uuid'] = uuid.uuid4() # Generate some unique ID
+    event.add('priority', 5)
+    event.add('sequence', 1)
+    event.add('created', tz.localize(dt.datetime.now())) #Skillnad på denna och dtstamp?
+
+    cal.add_component(event)
+    print cal #Skriver ut cal objektet till terminalen
+
+    # / Kalender inbjudan
 
     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
+    # send_inv = sendAppointment(time.datetime)
     mail = booking.client_mail
     from_email = settings.EMAIL_HOST_USER
     to_email = [mail]
-    msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
-    msg_html = render_to_string('booking_app/email.html', {'booking': booking, 'customer': customer, 'booking': booking, 'visit': visit, 'time': time, 'link': link})
-    send_mail(msg_plain, msg_html, from_email, to_email, fail_silently=True)
+
+    #msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
+    msg_html = render_to_string(
+        'booking_app/email.html',
+        {
+            'booking': booking,
+            'customer': customer,
+            'booking': booking,
+            'visit': visit,
+            'time': time,
+            'link': link,
+            #'sendAppointment': sendAppointment,
+        })
+    msg = EmailMultiAlternatives('Tidsbokning för Linkura', msg_html, from_email, to_email)
+    msg.attach_alternative(cal.to_ical(), 'text/calendar')
+    msg.send()
 
     return render(request, 'booking_app/results.html', {'visit': visit, 'customer': customer, 'booking': booking, 'time': time,})
 
