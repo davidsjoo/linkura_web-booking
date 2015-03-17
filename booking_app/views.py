@@ -14,6 +14,7 @@ import pytz
 import datetime
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.functional import lazy
 
@@ -141,7 +142,6 @@ def add_time(request, visit_id):
             capacity = request.POST['capacity']
             location = request.POST['location']
             description = request.POST['description']
-            
             Time.objects.create(
                 visit = visit, 
                 datetime = datetime, 
@@ -152,7 +152,8 @@ def add_time(request, visit_id):
             return render(request, 'booking_app/new_time.html', {
                 'visit': visit,
                 'form': form,
-                'customer_id': customer_id})
+                'customer_id': customer_id
+            })
         else:
             return HttpResponseRedirect(reverse('booking_app:new_time', 
                 args=(visit.id,)
@@ -334,7 +335,18 @@ class BookingsView(generic.ListView):
         result_list = list(chain(client))
         return result_list
 
+class TimeDetail(DetailView):
+    model = Time
+    def get_queryset(self):
+        return Time.objects.all()
 
+class VisitDetail(DetailView):
+    model = Visit
+    def get_queryset(self):
+        return Visit.objects.all()
+
+
+        
 
 
 
