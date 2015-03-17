@@ -139,7 +139,7 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     booking = get_object_or_404(Booking, pk=booking_id)
         #Booking: Person uppgifter till den som bokat
     time = get_object_or_404(Time, pk=time_id)
-        #Time: Tiden man valt.
+        #Time: Tiden man valt. (time.datetime = datumet man valt)
 
     # Kalender inbjudan
     tz = pytz.timezone("Europe/Stockholm")
