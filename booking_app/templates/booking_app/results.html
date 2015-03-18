@@ -8,8 +8,7 @@
 
 <p class="text">Du är nu anmäld följande datum och tid:</p>
 <h4>{{time.datetime|date:"j/n"}} klockan {{time.datetime|time:"H:i"}}, {{time.location}}</h4>
-<p class="text"><b>Information från coachen:</b><br />
-{{time.description}}<br /><br />
+
 <b>Dina kontaktuppgifter: </b><br />
 {{booking.client_firstname}} {{booking.client_lastname}}<br />
 Mailadress: {% if booking.client_mail %}{{booking.client_mail}}
