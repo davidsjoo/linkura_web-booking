@@ -9,6 +9,7 @@ from booking_app.views import TimeDelete
 from booking_app.views import TimeDetail
 from booking_app.views import VisitDetail
 from booking_app.views import CustomerDetail
+from booking_app.views import BookingDetail
 
 
 
@@ -42,5 +43,7 @@ urlpatterns = patterns('booking_app.views',
     url(r'^(?P<pk>\d+)/visit_detail/$', VisitDetail.as_view(), name='visit_detail'),
     url(r'^(?P<pk>\d+)/customer_detail/$', CustomerDetail.as_view(), name='customer_detail'),
     url(r'^bookinglist/$', views.BookingsView.as_view(), name='bookinglist'),
-        
+     
+    url(r'^(?P<pk>\d+)/booking_detail/$', BookingDetail.as_view(), name='booking_detail'),  
+    url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<time_id>\d+)/(?P<booking_id>\d+)/create_reminder/$', views.create_reminder, name='create_reminder'),
 )

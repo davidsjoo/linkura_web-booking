@@ -3,7 +3,7 @@
 {% block body %}
     {% for booking in bookinglist %}
     
-    {{booking.time}} -- {{ booking.client_firstname }} {{ booking.client_lastname }} -- {{ booking.client_mail }} -- {{booking.client_phone }} -- {{booking.id}} <br />	
+    {{booking.time}} -- {{ booking.client_firstname }} {{ booking.client_lastname }} -- {{ booking.client_mail }} -- {{booking.client_phone }} -- {{booking.client_reminder}} -- {{booking.id}} <br />	
     
     {% endfor %}
 {% endblock %}

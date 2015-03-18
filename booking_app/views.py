@@ -13,6 +13,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 import pytz
 import datetime
+from datetime import datetime, timedelta
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
@@ -32,6 +33,7 @@ from booking_app.forms import BookingForm
 from booking_app.forms import TimeForm
 from booking_app.forms import VisitForm
 from booking_app.forms import CustomerForm
+from booking_app.forms import ReminderForm
 
 #Customer
 class IndexView(generic.ListView):
@@ -227,12 +229,14 @@ def submit(request, customer_id, visit_id):
                 client_lastname = request.POST['client_lastname']
                 client_phone = request.POST['client_phone']
                 client_mail = request.POST['client_mail']
+
                 create_booking = Booking.objects.create(
                     time = time, 
                     client_firstname = client_firstname, 
                     client_lastname = client_lastname, 
                     client_phone = client_phone, 
-                    client_mail = client_mail
+                    client_mail = client_mail,
+
                 )
                 booking = create_booking.id
                 return HttpResponseRedirect(reverse('booking_app:results', 
@@ -315,7 +319,7 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     time = get_object_or_404(Time, pk=time_id)
-
+    form = ReminderForm(request.POST or None)
     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
     mail = booking.client_mail
     from_email = settings.EMAIL_HOST_USER
@@ -326,7 +330,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     msg_html = render_to_string('booking_app/email.html', {
         'booking': booking, 
         'customer': customer, 
-        'booking': booking, 
         'visit': visit, 
         'time': time, 
         'link': link})
@@ -337,7 +340,47 @@ def results(request, customer_id, visit_id, time_id, booking_id):
         'customer': customer, 
         'booking': booking, 
         'time': time,
+        'form': form,
     })
+
+def create_reminder(request, customer_id, visit_id, time_id, booking_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    visit = get_object_or_404(Visit, pk=visit_id)
+    booking = get_object_or_404(Booking, pk=booking_id)
+    time = get_object_or_404(Time, pk=time_id)
+    form = ReminderForm(request.POST or None)
+    get_time_id = booking.time_id
+    booking.client_reminder = request.POST.get('client_reminder')
+
+    if booking.client_reminder == 'ten_m':
+        booking.client_reminder = time.datetime - timedelta(minutes=10)
+    elif booking.client_reminder == 'thirty_m':
+        booking.client_reminder = time.datetime - timedelta(minutes=30)
+    elif booking.client_reminder == 'one_h':
+        booking.client_reminder = time.datetime - timedelta(hours=1)
+    elif booking.client_reminder == 'two_h':
+        booking.client_reminder = time.datetime - timedelta(hours=2)
+    elif booking.client_reminder == 'one_d':
+        booking.client_reminder = time.datetime - timedelta(days=1)
+    elif booking.client_reminder == 'two_d':
+        booking.client_reminder = time.datetime - timedelta(days=2)
+    elif booking.client_reminder == 'one_w':
+        booking.client_reminder = time.datetime - timedelta(weeks=1)
+    booking.save()
+    return render(request, 'booking_app/results.html', {
+        'booking': booking,
+        'success': 'Påminnelse skapad! Du kommer bli påmind',
+        'customer': customer, 
+        'visit': visit, 
+        'time': time,
+        'form': form,
+        })
+
+class BookingDetail(DetailView):
+    model = Booking
+    def get_queryset(self):
+        return Booking.objects.all()
+
 
 # def results(request, customer_id, visit_id, time_id, booking_id):
 #     customer = get_object_or_404(Customer, pk=customer_id)

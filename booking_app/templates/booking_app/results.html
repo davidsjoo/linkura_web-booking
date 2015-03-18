@@ -21,10 +21,26 @@ Mobilnummer: {% if booking.client_phone %}{{booking.client_phone}}
 {% endif %}<br /><br />
 Det har skickats ett mail med dina uppgifter till den mailadressen du angav<br />
 och med information om hur du kan byta bokningen.</p>
-<h4> Vill du byta bokning redan nu, kan du klicka på länken här nedan.</h4>
+<h4> 
+<a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}">
+Tryck här om du vill du byta bokning redan nu</h4>
+</a>
 
 
-<h5><a href="{% url 'booking_app:update_booking' customer.id visit.id booking.id %}"><b>Byt bokningen</b></a></h5>
+<h4>Vill du skapa en påminnelse för ditt möte? Välj hur långt innan du vill bli påmind:</h4>
 
+<form action="{% url 'booking_app:create_reminder' customer.id visit.id time.id booking.id %}" method="post">
+{% csrf_token %}
+<table width="20%">
+<tr>
+<td class="reminder">{{form.client_reminder}}</td>
+</tr>
+</table>
+<h5><input type='submit' value='Skapa påminnelse' button type="submit" class="btn btn-primary" /></h5>
+</form>
+
+{% if success %}
+<h4>{{success}} {{booking.client_reminder|date:"j/n"}} kl {{booking.client_reminder|time:"H:i"}}</h4>
+{% endif %}
 
 {% endblock %}
