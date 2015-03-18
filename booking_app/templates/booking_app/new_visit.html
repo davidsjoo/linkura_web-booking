@@ -4,6 +4,9 @@
 <div id="rubrik">{{customer.customer_name}} </div>
 
 <h4>Besökslista</h4>
+
+<h5><b><a href="{% url 'booking_app:customer_detail' customer.pk %}">Visa kontaktuppgifter för alla i det här företaget</a></b></h5>
+
 <table width="100%" align="bottom">
     <tr>
     	<th>Besök</th>

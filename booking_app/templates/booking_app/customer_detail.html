@@ -1,7 +1,7 @@
 {% extends "booking_app/base.html" %}
 
 {% block body %}
-<div id="rubrik">{{visit.customer}} - {{visit.visit_name}} </div>
+<div id="rubrik">{{customer.customer_name}} </div>
 
 
 
@@ -13,6 +13,7 @@
 	<th>Mobilnummer</th>
 	<th>Bokad tid</th>
 </tr>
+{% for visit in customer.visit_set.all %}
 {% for time in visit.time_set.all %}
  	{% for booking in time.booking_set.all %}
 		<tr>
@@ -23,6 +24,7 @@
  		</tr>
 {% endfor %}
 {% endfor %}
+{% endfor %}
 </table>
-<h5><a href="{% url 'booking_app:new_time' visit.pk %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+<h5><a href="{% url 'booking_app:new_visit' customer.pk %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 {% endblock %}

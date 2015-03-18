@@ -8,6 +8,7 @@ from booking_app.views import VisitDelete
 from booking_app.views import TimeDelete
 from booking_app.views import TimeDetail
 from booking_app.views import VisitDetail
+from booking_app.views import CustomerDetail
 
 
 
@@ -39,6 +40,7 @@ urlpatterns = patterns('booking_app.views',
 
     url(r'^(?P<pk>\d+)/time_detail/$', TimeDetail.as_view(), name='time_detail'),
     url(r'^(?P<pk>\d+)/visit_detail/$', VisitDetail.as_view(), name='visit_detail'),
+    url(r'^(?P<pk>\d+)/customer_detail/$', CustomerDetail.as_view(), name='customer_detail'),
     url(r'^bookinglist/$', views.BookingsView.as_view(), name='bookinglist'),
         
 )

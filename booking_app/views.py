@@ -430,6 +430,11 @@ class VisitDetail(DetailView):
     def get_queryset(self):
         return Visit.objects.all()
 
+class CustomerDetail(DetailView):
+    model = Customer
+    def get_queryset(self):
+        return Customer.objects.all()
+
 
         
 

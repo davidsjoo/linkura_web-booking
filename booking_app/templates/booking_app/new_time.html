@@ -8,7 +8,9 @@
 <div id="rubrik">{{visit.customer}} - {{visit.visit_name}} </div>
 
 <h4>Tider som redan finns i detta besök</h4>
-<h5><b><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa detaljerad lista</a></b></h5>
+
+<h5><b><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa kontaktuppgifter för alla i det här besöket</a></b></h5>
+
 <table width="100%" align="bottom" >
 <tr><th>Måndag
     {% for time in visit.time_set.all %} 
