@@ -50,7 +50,7 @@ class CustomerForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
 		model = Time
-		fields = ['datetime', 'capacity', 'location', 'description']
+		fields = ['datetime', 'capacity', 'location',]
 		dateTimeOptions = {
 		'format': 'yyyy-mm-dd hh:ii',
 		'autoclose': True,

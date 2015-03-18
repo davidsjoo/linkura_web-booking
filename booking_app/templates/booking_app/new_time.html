@@ -132,15 +132,13 @@
 <table class="table1" width="100%" align="bottom">
 <tr>
 <th><label for="client_firstname">Datum och tid </label>{% csrf_token %}</th>
-<th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
+<th><label for="client_lastname">Antal deltagare </label>{% csrf_token %}</th>
 <th><label for="client_phone">Plats </label>{% csrf_token %}</th>
-<th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
 </tr>
 <tr>
 <td>{{form.datetime}}</td>
 <td>{{form.capacity}}</td>
 <td>{{form.location}}</td>
-<td>{{form.description}}</td>
 
 </tr>
 </table>

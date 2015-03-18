@@ -155,13 +155,12 @@ def add_time(request, visit_id):
             datetime = request.POST['datetime']
             capacity = request.POST['capacity']
             location = request.POST['location']
-            description = request.POST['description']
+
             Time.objects.create(
                 visit = visit, 
                 datetime = datetime, 
                 capacity = capacity, 
                 location = location, 
-                description = description
             )
             return render(request, 'booking_app/new_time.html', {
                 'visit': visit,
@@ -175,7 +174,7 @@ def add_time(request, visit_id):
 
 class TimeUpdate(UpdateView):
     model = Time
-    fields = ['datetime', 'capacity', 'location', 'description']
+    fields = ['datetime', 'capacity', 'location',]
     def get_success_url(self):
         visit_id =  self.object.visit_id
         return reverse('booking_app:new_time', args={visit_id})
