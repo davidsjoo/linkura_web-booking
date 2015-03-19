@@ -74,6 +74,7 @@ class CustomerDelete(DeleteView):
 #Visit
 def visit(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+    #customer = Customer.objects.get(slug=slug)
     return render(request, 'booking_app/visit.html', {
         'customer': customer
     })
@@ -114,13 +115,6 @@ class VisitUpdate(UpdateView):
         return reverse('booking_app:new_visit', args={customer_id})
 
 
-def update_booking(request, customer_id, visit_id, booking_id):
-	visit = get_object_or_404(Visit, pk=visit_id) 
-	customer = get_object_or_404(Customer, pk=customer_id)
-	booking = get_object_or_404(Booking, pk=booking_id)
-	form = BookingForm(request.POST or None, instance=booking)
-	return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
-
 class VisitDelete(DeleteView):
     model = Visit
     def get_success_url(self):
@@ -128,11 +122,12 @@ class VisitDelete(DeleteView):
         return reverse('booking_app:new_visit', args={customer_id})
 
 #Time
-def detail(request, customer_id, visit_id):
-	visit = get_object_or_404(Visit, pk=visit_id)
-	customer = get_object_or_404(Customer, pk=customer_id)
-	form = BookingForm(request.POST or None)
-	return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
+def detail(request, slug, visit_id):
+    customer = Visit.objects.get(slug=slug)
+    visit = Visit.objects.get(id=visit_id)
+    
+    form = BookingForm(request.POST or None)
+    return render(request, 'booking_app/detail.html', { 'form': form, 'visit': visit, 'customer': customer,})
 
 
 
@@ -196,18 +191,17 @@ def bokningar(request, time_id, booking_id):
         'visit_id': visit_id
     })
 
-def submit(request, customer_id, visit_id):
+def submit(request, visit_id):
     p = get_object_or_404(Visit, pk=visit_id)
-    customer = get_object_or_404(Customer, pk=customer_id)
     form = BookingForm(request.POST or None)
     try:
         selected_time = p.time_set.get(pk=request.POST['time'])
     except (KeyError, Time.DoesNotExist):
-        customer = get_object_or_404(Customer, pk=customer_id)
+        
         return render(request, 'booking_app/detail.html', {
             'visit': p,
             'time_error_message': "Du har inte valt en tid.", 
-            'customer': customer,
+            
             'form': form,
             })
     else:
@@ -219,7 +213,6 @@ def submit(request, customer_id, visit_id):
                     return render(request, 'booking_app/detail.html', {
                     'visit': p,
                     'capacity_error_message': "Tyvärr har någon redan bokat den tiden",
-                    'customer': customer,
                     'form': form,
                     })
                 time_id = selected_time.id
@@ -228,7 +221,7 @@ def submit(request, customer_id, visit_id):
                 client_lastname = request.POST['client_lastname']
                 client_phone = request.POST['client_phone']
                 client_mail = request.POST['client_mail']
-
+                print p.customer_id
                 create_booking = Booking.objects.create(
                     time = time, 
                     client_firstname = client_firstname, 
@@ -239,13 +232,13 @@ def submit(request, customer_id, visit_id):
                 )
                 booking = create_booking.id
                 return HttpResponseRedirect(reverse('booking_app:results', 
-                    args=(customer.id, p.id, time_id, booking,)
+                    args=(p.customer_id, p.id, time_id, booking,)
                 ))
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
                 'form_error_message': "Du måste ange för- och efternamn",
-                'customer': customer,
+                
                 'form': form,
                 })
         

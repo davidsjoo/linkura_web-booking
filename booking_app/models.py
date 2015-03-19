@@ -3,6 +3,8 @@ import os
 from django.db import models
 from django.forms import ModelForm
 from django.core.urlresolvers import reverse
+from django.template.defaultfilters import slugify
+from autoslug import AutoSlugField
 
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
@@ -14,8 +16,10 @@ class Visit(models.Model):
 	customer = models.ForeignKey(Customer)
 	visit_name = models.CharField(max_length=50)
 	visit_date = models.DateField('Date')
+	slug = AutoSlugField(populate_from='customer')
 	def __unicode__(self):
 		return self.visit_name
+
 
 class Time(models.Model):
 	visit = models.ForeignKey(Visit)
