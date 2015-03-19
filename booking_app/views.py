@@ -125,7 +125,6 @@ class VisitDelete(DeleteView):
 def detail(request, slug, visit_id):
     customer = Visit.objects.get(slug=slug)
     visit = Visit.objects.get(id=visit_id)
-    
     form = BookingForm(request.POST or None)
     return render(request, 'booking_app/detail.html', { 'form': form, 'visit': visit, 'customer': customer,})
 

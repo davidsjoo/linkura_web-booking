@@ -11,7 +11,7 @@
     </tr>
     {% for visit in customer.visit_set.all %}
     <tr>
-    	<td><a href="{% url 'booking_app:detail' visit.id %}">{{ visit.visit_name }}</a></td>
+    	<td><a href="{% url 'booking_app:detail' visit.slug visit.id %}">{{ visit.visit_name }}</a></td>
     	<td>{{visit.visit_date|date:"l j"}}</td>
     	<td>{{visit.visit_date|date:"F"}}</td>
     	<td>{{visit.visit_date|date:"Y"}}</td>
