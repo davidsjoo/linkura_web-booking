@@ -36,7 +36,6 @@ div {
 	color: white;
 	background: #288dc0;
 	width: 100%;
-  border-radius: 5px;
 	border: 1px solid;
 	border-color: #D8D8D8;
   padding: 5px;
@@ -147,4 +146,21 @@ h5 {
 p.text {
     font-weight: normal;
     padding: 5px;
+}
+
+.list-group-item {
+  position: relative;
+  width: 40%;
+  display: block;
+  padding: 2px 2px;
+  margin-bottom: -1px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+  z-index: 2;
+  color: #fff;
+  background-color: #288dc0;
+  border-color: #C5E4FF;
 }

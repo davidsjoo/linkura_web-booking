@@ -1,0 +1,13 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+
+
+<div id="rubrik">{{time.datetime|date:"j/n"}} {{time.datetime|time:"H:i"}} </div>
+
+{%for booking in time.booking_set.all %}
+{{booking.client_firstname}} {{booking.client_lastname}} - {{booking.client_mail}} - {{booking.client_phone}}<br />
+{% endfor %}
+
+
+{% endblock %}

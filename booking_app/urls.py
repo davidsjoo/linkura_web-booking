@@ -6,6 +6,9 @@ from booking_app.views import TimeUpdate
 from booking_app.views import CustomerDelete
 from booking_app.views import VisitDelete
 from booking_app.views import TimeDelete
+from booking_app.views import TimeDetail
+from booking_app.views import VisitDetail
+
 
 
 urlpatterns = patterns('booking_app.views',
@@ -34,6 +37,8 @@ urlpatterns = patterns('booking_app.views',
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<booking_id>\d+)/$', views.update_booking, name='update_booking'),
     url(r'^(?P<customer_id>\d+)/(?P<visit_id>\d+)/(?P<time_id>\d+)/(?P<booking_id>\d+)/results/$', views.results, name='results'),
 
+    url(r'^(?P<pk>\d+)/time_detail/$', TimeDetail.as_view(), name='time_detail'),
+    url(r'^(?P<pk>\d+)/visit_detail/$', VisitDetail.as_view(), name='visit_detail'),
     url(r'^bookinglist/$', views.BookingsView.as_view(), name='bookinglist'),
         
 )
