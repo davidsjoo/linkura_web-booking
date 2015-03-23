@@ -9,6 +9,7 @@ from autoslug import AutoSlugField
 class Customer(models.Model):
 	customer_name = models.CharField(max_length=50)
 	created_date = models.DateTimeField(auto_now=True)
+	slug = AutoSlugField(populate_from='customer_name')
 	def __unicode__(self):
 		return self.customer_name
 
@@ -16,7 +17,7 @@ class Visit(models.Model):
 	customer = models.ForeignKey(Customer)
 	visit_name = models.CharField(max_length=50)
 	visit_date = models.DateField('Date')
-	slug = AutoSlugField(populate_from='customer')
+	visit_slug = AutoSlugField(populate_from='visit_name', unique_with='customer__customer_name')
 	def __unicode__(self):
 		return self.visit_name
 

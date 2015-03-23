@@ -40,5 +40,7 @@
 </table>
 <h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
 </form> 
-
+{% if error_message %}
+<h4>Du måste fylla i <b>Företagsnamn</b></h4>
+{% endif %}
 {% endblock %}

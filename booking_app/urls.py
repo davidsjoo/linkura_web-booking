@@ -27,7 +27,7 @@ urlpatterns = patterns('booking_app.views',
     url(r'^(?P<pk>\d+)/visit_update/$', VisitUpdate.as_view(), name='visit_update'),
     url(r'^(?P<pk>\d+)/visit_delete/$', VisitDelete.as_view(), name='visit_delete'),
     
-    url(r'^(?P<slug>[-\w]+)/(?P<visit_id>\d+)/$', views.detail, name='detail'),
+    url(r'^(?P<slug>[-\w]+)-(?P<visit_slug>[-\w]+)/$', views.detail, name='detail'),
     url(r'^(?P<visit_id>\d+)/new_time/$', views.new_time, name='new_time'),
     url(r'^(?P<visit_id>\d+)/add_time/$', views.add_time, name='add_time'),
     url(r'^(?P<pk>\d+)/time_update/$', TimeUpdate.as_view(), name='time_update'),
