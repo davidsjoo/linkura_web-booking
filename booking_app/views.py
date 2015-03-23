@@ -13,13 +13,14 @@ from django.conf import settings
 from django.template.loader import render_to_string
 import pytz
 import datetime
+from datetime import datetime, timedelta
 from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.functional import lazy
 
-#from booking_app.mail_inv import sendAppointment
+#   from booking_app.mail_inv import sendAppointment
 import datetime as dt
 import icalendar
 import uuid
@@ -32,6 +33,7 @@ from booking_app.forms import BookingForm
 from booking_app.forms import TimeForm
 from booking_app.forms import VisitForm
 from booking_app.forms import CustomerForm
+from booking_app.forms import ReminderForm
 
 #Customer
 class IndexView(generic.ListView):
@@ -72,6 +74,7 @@ class CustomerDelete(DeleteView):
 #Visit
 def visit(request, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+    #customer = Customer.objects.get(slug=slug)
     return render(request, 'booking_app/visit.html', {
         'customer': customer
     })
@@ -112,13 +115,6 @@ class VisitUpdate(UpdateView):
         return reverse('booking_app:new_visit', args={customer_id})
 
 
-def update_booking(request, customer_id, visit_id, booking_id):
-	visit = get_object_or_404(Visit, pk=visit_id) 
-	customer = get_object_or_404(Customer, pk=customer_id)
-	booking = get_object_or_404(Booking, pk=booking_id)
-	form = BookingForm(request.POST or None, instance=booking)
-	return render(request, 'booking_app/update_booking.html', {'visit': visit, 'customer': customer, 'booking': booking, 'form': form,})
-
 class VisitDelete(DeleteView):
     model = Visit
     def get_success_url(self):
@@ -126,11 +122,11 @@ class VisitDelete(DeleteView):
         return reverse('booking_app:new_visit', args={customer_id})
 
 #Time
-def detail(request, customer_id, visit_id):
-	visit = get_object_or_404(Visit, pk=visit_id)
-	customer = get_object_or_404(Customer, pk=customer_id)
-	form = BookingForm(request.POST or None)
-	return render(request, 'booking_app/detail.html', {'visit': visit, 'customer': customer, 'form': form,})
+def detail(request, slug, visit_id):
+    customer = Visit.objects.get(slug=slug)
+    visit = Visit.objects.get(id=visit_id)
+    form = BookingForm(request.POST or None)
+    return render(request, 'booking_app/detail.html', { 'form': form, 'visit': visit, 'customer': customer,})
 
 def results(request, customer_id, visit_id, time_id, booking_id):
     customer = get_object_or_404(Customer, pk=customer_id)
@@ -173,36 +169,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
 
     # / Kalender inbjudan
 
-    link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
-    # send_inv = sendAppointment(time.datetime)
-    mail = booking.client_mail
-    from_email = settings.EMAIL_HOST_USER
-    to_email = [mail]
-
-    #msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
-    msg_html = render_to_string(
-        'booking_app/email.html',
-        {
-            'booking': booking,
-            'customer': customer,
-            'booking': booking,
-            'visit': visit,
-            'time': time,
-            'link': link,
-            #'sendAppointment': sendAppointment,
-        })
-    msg = EmailMultiAlternatives('Tidsbokning för Linkura', msg_html, from_email, to_email)
-    msg.attach_alternative(cal.to_ical(), 'text/calendar')
-    msg.send()
-    visit = get_object_or_404(Visit, pk=visit_id)
-    customer = get_object_or_404(Customer, pk=customer_id)
-    form = BookingForm(request.POST or None)
-    return render(request, 'booking_app/detail.html', {
-        'visit': visit, 
-        'customer': customer, 
-        'form': form,
-    })
-
 def new_time(request, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     form = TimeForm(request.POST or None)
@@ -222,13 +188,12 @@ def add_time(request, visit_id):
             datetime = request.POST['datetime']
             capacity = request.POST['capacity']
             location = request.POST['location']
-            description = request.POST['description']
+
             Time.objects.create(
                 visit = visit, 
                 datetime = datetime, 
                 capacity = capacity, 
                 location = location, 
-                description = description
             )
             return render(request, 'booking_app/new_time.html', {
                 'visit': visit,
@@ -242,7 +207,7 @@ def add_time(request, visit_id):
 
 class TimeUpdate(UpdateView):
     model = Time
-    fields = ['datetime', 'capacity', 'location', 'description']
+    fields = ['datetime', 'capacity', 'location',]
     def get_success_url(self):
         visit_id =  self.object.visit_id
         return reverse('booking_app:new_time', args={visit_id})
@@ -264,18 +229,17 @@ def bokningar(request, time_id, booking_id):
         'visit_id': visit_id
     })
 
-def submit(request, customer_id, visit_id):
+def submit(request, visit_id):
     p = get_object_or_404(Visit, pk=visit_id)
-    customer = get_object_or_404(Customer, pk=customer_id)
     form = BookingForm(request.POST or None)
     try:
         selected_time = p.time_set.get(pk=request.POST['time'])
     except (KeyError, Time.DoesNotExist):
-        customer = get_object_or_404(Customer, pk=customer_id)
+        
         return render(request, 'booking_app/detail.html', {
             'visit': p,
             'time_error_message': "Du har inte valt en tid.", 
-            'customer': customer,
+            
             'form': form,
             })
     else:
@@ -287,7 +251,6 @@ def submit(request, customer_id, visit_id):
                     return render(request, 'booking_app/detail.html', {
                     'visit': p,
                     'capacity_error_message': "Tyvärr har någon redan bokat den tiden",
-                    'customer': customer,
                     'form': form,
                     })
                 time_id = selected_time.id
@@ -296,22 +259,24 @@ def submit(request, customer_id, visit_id):
                 client_lastname = request.POST['client_lastname']
                 client_phone = request.POST['client_phone']
                 client_mail = request.POST['client_mail']
+                print p.customer_id
                 create_booking = Booking.objects.create(
                     time = time, 
                     client_firstname = client_firstname, 
                     client_lastname = client_lastname, 
                     client_phone = client_phone, 
-                    client_mail = client_mail
+                    client_mail = client_mail,
+
                 )
                 booking = create_booking.id
                 return HttpResponseRedirect(reverse('booking_app:results', 
-                    args=(customer.id, p.id, time_id, booking,)
+                    args=(p.customer_id, p.id, time_id, booking,)
                 ))
             else:
                 return render(request, 'booking_app/detail.html', {
                 'visit': p,
                 'form_error_message': "Du måste ange för- och efternamn",
-                'customer': customer,
+                
                 'form': form,
                 })
         
@@ -384,7 +349,7 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     visit = get_object_or_404(Visit, pk=visit_id)
     booking = get_object_or_404(Booking, pk=booking_id)
     time = get_object_or_404(Time, pk=time_id)
-
+    form = ReminderForm(request.POST or None)
     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
     mail = booking.client_mail
     from_email = settings.EMAIL_HOST_USER
@@ -395,7 +360,6 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     msg_html = render_to_string('booking_app/email.html', {
         'booking': booking, 
         'customer': customer, 
-        'booking': booking, 
         'visit': visit, 
         'time': time, 
         'link': link})
@@ -406,7 +370,120 @@ def results(request, customer_id, visit_id, time_id, booking_id):
         'customer': customer, 
         'booking': booking, 
         'time': time,
+        'form': form,
     })
+
+def create_reminder(request, customer_id, visit_id, time_id, booking_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    visit = get_object_or_404(Visit, pk=visit_id)
+    booking = get_object_or_404(Booking, pk=booking_id)
+    time = get_object_or_404(Time, pk=time_id)
+    form = ReminderForm(request.POST or None)
+    get_time_id = booking.time_id
+    booking.client_reminder = request.POST.get('client_reminder')
+
+    if booking.client_reminder == 'ten_m':
+        booking.client_reminder = time.datetime - timedelta(minutes=10)
+    elif booking.client_reminder == 'thirty_m':
+        booking.client_reminder = time.datetime - timedelta(minutes=30)
+    elif booking.client_reminder == 'one_h':
+        booking.client_reminder = time.datetime - timedelta(hours=1)
+    elif booking.client_reminder == 'two_h':
+        booking.client_reminder = time.datetime - timedelta(hours=2)
+    elif booking.client_reminder == 'one_d':
+        booking.client_reminder = time.datetime - timedelta(days=1)
+    elif booking.client_reminder == 'two_d':
+        booking.client_reminder = time.datetime - timedelta(days=2)
+    elif booking.client_reminder == 'one_w':
+        booking.client_reminder = time.datetime - timedelta(weeks=1)
+    booking.save()
+    return render(request, 'booking_app/results.html', {
+        'booking': booking,
+        'success': 'Påminnelse skapad! Du kommer bli påmind',
+        'customer': customer, 
+        'visit': visit, 
+        'time': time,
+        'form': form,
+        })
+
+class BookingDetail(DetailView):
+    model = Booking
+    def get_queryset(self):
+        return Booking.objects.all()
+
+
+# def results(request, customer_id, visit_id, time_id, booking_id):
+#     customer = get_object_or_404(Customer, pk=customer_id)
+#         #Customer: Företaget t.ex. Linkura
+#     visit = get_object_or_404(Visit, pk=visit_id)
+#         #Visit: typ av möte t.ex. uppstart
+#     booking = get_object_or_404(Booking, pk=booking_id)
+#         #Booking: Person uppgifter till den som bokat
+#     time = get_object_or_404(Time, pk=time_id)
+#         #Time: Tiden man valt.
+
+#     # Kalender inbjudan
+#     tz = pytz.timezone("Europe/Stockholm")
+#     reminderHours = 1
+#     startHour = 7
+#     start = time.datetime
+#     cal = icalendar.Calendar()
+
+
+#     cal.add('prodid', '-//My calendar application//example.com//') #Ändra!
+#     cal.add('version', '2.0')
+#     cal.add('method', "REQUEST")
+
+#     event = icalendar.Event()
+#     event.add('attendee', booking.client_mail)
+#     event.add('organizer', "linkuramailtest@gmail.com") #Ändra till Linkuras mail
+#     event.add('status', "confirmed") 
+#     event.add('category', "Event")
+#     event.add('summary', 'Mote med coach') #Ändra till något bättre
+#     event.add('description', 'description') #Ändra eller använd email.html som description
+#     event.add('location', time.location)
+#     event.add('dtstart', start)
+#     event.add('dtend', dt.time(startHour + 1, 0, 0))
+#     event.add('dtstamp', start) #Indikerar tiden när kalender objektet skapades
+#     event['uuid'] = uuid.uuid4() # Generate some unique ID
+#     event.add('priority', 5)
+#     event.add('sequence', 1)
+#     event.add('created', tz.localize(dt.datetime.now())) #Skillnad på denna och dtstamp?
+
+#     cal.add_component(event)
+#     print cal #Skriver ut cal objektet till terminalen
+
+#     # / Kalender inbjudan
+
+#     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
+#     # send_inv = sendAppointment(time.datetime)
+#     mail = booking.client_mail
+#     from_email = settings.EMAIL_HOST_USER
+#     to_email = [mail]
+
+#     #msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
+#     msg_html = render_to_string(
+#         'booking_app/email.html',
+#         {
+#             'booking': booking,
+#             'customer': customer,
+#             'booking': booking,
+#             'visit': visit,
+#             'time': time,
+#             'link': link,
+#             #'sendAppointment': sendAppointment,
+#         })
+#     msg = EmailMultiAlternatives('Tidsbokning för Linkura', msg_html, from_email, to_email)
+#     msg.attach(cal.to_ical(), 'text/calendar')
+#     msg.send()
+#     visit = get_object_or_404(Visit, pk=visit_id)
+#     customer = get_object_or_404(Customer, pk=customer_id)
+#     form = BookingForm(request.POST or None)
+#     return render(request, 'booking_app/detail.html', {
+#         'visit': visit, 
+#         'customer': customer, 
+#         'form': form,
+#     })
 
 class BookingsView(generic.ListView):
     template_name = 'booking_app/bookinglist.html'
@@ -425,6 +502,12 @@ class VisitDetail(DetailView):
     model = Visit
     def get_queryset(self):
         return Visit.objects.all()
+
+class CustomerDetail(DetailView):
+    model = Customer
+    def get_queryset(self):
+        return Customer.objects.all()
+
 
 
         

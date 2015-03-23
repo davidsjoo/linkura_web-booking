@@ -1,3 +1,8 @@
+a {
+  color: #337ab7;
+  text-decoration: underline;
+}
+
 li {
  list-style-type: none; 
 }
@@ -86,9 +91,13 @@ td {
     border-radius: 5px;
 }
 
-td:empty {
-    visibility: hidden;
+td.reminder {
+    padding: 5px 5px;
+    outline: 0px solid #D8D8D8;
+    border-radius: 5px;
 }
+
+
 
 th {
     background: #288dc0;

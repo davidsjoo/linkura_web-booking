@@ -14,8 +14,15 @@ class BookingForm(forms.ModelForm):
 			'client_firstname', 
 			'client_lastname', 
 			'client_phone', 
-			'client_mail'
+			'client_mail',
+			
 		]
+
+class ReminderForm(forms.ModelForm):
+	class Meta:
+		model = Booking
+		fields = [
+			'client_reminder']
 
 class VisitForm(forms.ModelForm):
 	class Meta:
@@ -43,7 +50,7 @@ class CustomerForm(forms.ModelForm):
 class TimeForm(forms.ModelForm):
     class Meta:
 		model = Time
-		fields = ['datetime', 'capacity', 'location', 'description']
+		fields = ['datetime', 'capacity', 'location',]
 		dateTimeOptions = {
 		'format': 'yyyy-mm-dd hh:ii',
 		'autoclose': True,

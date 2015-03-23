@@ -9,6 +9,11 @@
 
 <h4>Tider som redan finns i detta besök</h4>
 
+<<<<<<< HEAD
+=======
+<h5><b><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa kontaktuppgifter för alla i det här besöket</a></b></h5>
+
+>>>>>>> d74bd5a9b3e7c93cf5205861547e2d68dec4b23a
 <table width="100%" align="bottom" >
 <tr><th>Måndag
     {% for time in visit.time_set.all %} 
@@ -130,15 +135,13 @@
 <table class="table1" width="100%" align="bottom">
 <tr>
 <th><label for="client_firstname">Datum och tid </label>{% csrf_token %}</th>
-<th><label for="client_lastname">Antal platser </label>{% csrf_token %}</th>
+<th><label for="client_lastname">Antal deltagare </label>{% csrf_token %}</th>
 <th><label for="client_phone">Plats </label>{% csrf_token %}</th>
-<th><label for="client_mail">Beskrivning </label>{% csrf_token %}</th>
 </tr>
 <tr>
 <td>{{form.datetime}}</td>
 <td>{{form.capacity}}</td>
 <td>{{form.location}}</td>
-<td>{{form.description}}</td>
 
 </tr>
 </table>

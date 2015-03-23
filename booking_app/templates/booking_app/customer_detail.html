@@ -1,0 +1,30 @@
+{% extends "booking_app/base.html" %}
+
+{% block body %}
+<div id="rubrik">{{customer.customer_name}} </div>
+
+
+
+</table>
+<table>
+<tr>
+	<th>Namn</th>
+	<th>Mail</th>
+	<th>Mobilnummer</th>
+	<th>Bokad tid</th>
+</tr>
+{% for visit in customer.visit_set.all %}
+{% for time in visit.time_set.all %}
+ 	{% for booking in time.booking_set.all %}
+		<tr>
+ 			<td>{{booking.client_firstname}} {{booking.client_lastname}}</td>
+ 			<td>{{booking.client_mail}}</td>	
+ 			<td>{{booking.client_phone}}</td>
+ 			<td>{{booking.time.datetime|date:"j/n"}} - {{booking.time.datetime|time:"H:i"}} </td>
+ 		</tr>
+{% endfor %}
+{% endfor %}
+{% endfor %}
+</table>
+<h5><a href="{% url 'booking_app:new_visit' customer.pk %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+{% endblock %}

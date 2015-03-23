@@ -25,7 +25,7 @@ def sendAppointment(date):
 	event.add('summary', 'Test')
 	event.add('description', 'description')
 	event.add('location', "Room 101")
-+	event.add('dtstart', start)
+	event.add('dtstart', start)
 	event.add('dtend', tz.localize(dt.datetime.combine(date.date(), dt.time(startHour + 1, 0, 0))))
 	event.add('dtstamp', tz.localize(dt.datetime.combine(date.date(), dt.time(6, 0, 0))))
 	event['uuid'] = uuid.uuid4() # Generate some unique ID
@@ -42,6 +42,17 @@ def sendAppointment(date):
 	#alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminderHours))
 	#event.add_component(alarm)
 
+<<<<<<< HEAD
+=======
+	alarm = icalendar.Alarm()
+	alarm.add("action", "DISPLAY")
+	alarm.add('description', "Reminder")
+	#alarm.add("trigger", dt.timedelta(hours=-reminderHours))
+	# The only way to convince Outlook to do it correcty
+	alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminderHours))
+	event.add_component(alarm)
+
+>>>>>>> d74bd5a9b3e7c93cf5205861547e2d68dec4b23a
 	cal.add_component(event)
  
 	#msg = MIMEMultipart("alternative")
