@@ -11,6 +11,7 @@
 
 <h5><b><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa kontaktuppgifter för alla i det här besöket</a></b></h5>
 <h4>Tider som redan finns i detta besök</h4>
+
 <table width="100%" align="bottom" >
 <tr><th>Måndag
     {% for time in visit.time_set.all %} 
@@ -145,9 +146,11 @@
 
 <h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
 </form>
+
 {% if error_message %}
 <h4>Du måste fylla i <b>Datum och tid</b>, <b>Antal deltagare</b> och <b>Plats</b></h4>
 {% endif %}
+
 <h5><a href="{% url 'booking_app:new_visit' customer_id %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 
 <li class="">
 <label for="time{{ forloop.counter }}">
-	{{ time.datetime|time:"H:i"}} - {{time.location}}
+	<a href="{% url 'booking_app:time_detail' time.pk %}" STYLE="text-decoration: none">{{ time.datetime|time:"H:i"}} - {{time.location}}</a>
 	<a href="{% url 'booking_app:time_update' time.id %}" STYLE="text-decoration: none"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 	<a href="{% url 'booking_app:time_delete' time.id %}" STYLE="text-decoration: none"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
 	<br />
