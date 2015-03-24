@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'booking_app',
     'debug_toolbar',
     'datetimewidget',
+    'django_autoslug',
 )
 
 MIDDLEWARE_CLASSES = (
