@@ -42,6 +42,10 @@
 <h5><input type='submit' value='Lägg till' button type="submit" class="btn btn-primary" /></h5>
 </form>
 
+{% if error_message %}
+<h4>Du måste fylla i <b>Besöksnamn</b> och <b>Datum för besök</b></h4>
+{% endif %}
+
 <h5><a href="{% url 'booking_app:coach_index' %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
 
 {% endblock %}

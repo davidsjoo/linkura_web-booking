@@ -52,6 +52,7 @@ def coach_index(request,):
 
 def add_customer(request,):
     form = CustomerForm(request.POST or None)
+    customer_list = Customer.objects.order_by('-created_date')
     if request.method == 'POST':
         if form.is_valid():
             customer_name = request.POST['customer_name']
@@ -59,7 +60,12 @@ def add_customer(request,):
             Customer.objects.create(customer_name = customer_name)
             return HttpResponseRedirect(reverse('booking_app:coach_index',))
         else:
-            return HttpResponseRedirect(reverse('booking_app:coach_index',))
+            return render(request, 'booking_app/coach_index.html', {
+                'form': form, 
+                'customer_list': customer_list,
+                'error_message': "Du måste skriva in ett företagsnamn",
+
+            })
 
 class CustomerUpdate(UpdateView):
     model = Customer
@@ -72,11 +78,13 @@ class CustomerDelete(DeleteView):
         return reverse('booking_app:coach_index')
 
 #Visit
-def visit(request, customer_id):
-    customer = get_object_or_404(Customer, pk=customer_id)
-    #customer = Customer.objects.get(slug=slug)
+def visit(request, slug,):
+    #customer = get_object_or_404(Customer, pk=customer_id)
+    customer = Customer.objects.get(slug=slug)
+    
     return render(request, 'booking_app/visit.html', {
-        'customer': customer
+        'customer': customer,
+    
     })
 
 def new_visit(request, customer_id):
@@ -103,9 +111,11 @@ def add_visit(request, customer_id):
                 args=(customer.id,)
             ))
         else:
-            return HttpResponseRedirect(reverse('booking_app:new_visit', 
-                args=(customer.id,)
-            ))
+            return render(request, 'booking_app/new_visit.html', {
+                'customer': customer, 
+                'form': form,
+                'error_message': "Du måste fylla i besöksnamn och datum"
+            })
 
 class VisitUpdate(UpdateView):
     model = Visit
@@ -122,9 +132,9 @@ class VisitDelete(DeleteView):
         return reverse('booking_app:new_visit', args={customer_id})
 
 #Time
-def detail(request, slug, visit_id):
-    customer = Visit.objects.get(slug=slug)
-    visit = Visit.objects.get(id=visit_id)
+def detail(request, slug, visit_slug):
+    customer = Customer.objects.get(slug=slug)
+    visit = Visit.objects.get(visit_slug=visit_slug, customer__customer_name=customer)
     form = BookingForm(request.POST or None)
     return render(request, 'booking_app/detail.html', { 'form': form, 'visit': visit, 'customer': customer,})
 
@@ -201,9 +211,12 @@ def add_time(request, visit_id):
                 'customer_id': customer_id
             })
         else:
-            return HttpResponseRedirect(reverse('booking_app:new_time', 
-                args=(visit.id,)
-            ))
+            return render(request, 'booking_app/new_time.html', {
+                'visit': visit, 
+                'form': form, 
+                'customer_id': customer_id,
+                'error_message': "Du måste fylla i datum och tid, antal deltagare och plats"
+    })
 
 class TimeUpdate(UpdateView):
     model = Time

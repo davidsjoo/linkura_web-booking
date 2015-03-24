@@ -40,7 +40,7 @@
             {% if time.datetime|date:"l" == "Monday" %}
                 {{time.datetime|date:"j/n"}}
                 {% for time in visit.time_set.all|slice:"1" %}
-                {% endfor %}        
+                {% endfor %}
             {% else %}
             {% endif %}
         {% endifchanged %}
