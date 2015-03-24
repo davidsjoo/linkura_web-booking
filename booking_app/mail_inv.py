@@ -42,8 +42,7 @@ def sendAppointment(date):
 	#alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminderHours))
 	#event.add_component(alarm)
 
-<<<<<<< HEAD
-=======
+
 	alarm = icalendar.Alarm()
 	alarm.add("action", "DISPLAY")
 	alarm.add('description', "Reminder")
@@ -52,7 +51,7 @@ def sendAppointment(date):
 	alarm.add("TRIGGER;RELATED=START", "-PT{0}H".format(reminderHours))
 	event.add_component(alarm)
 
->>>>>>> d74bd5a9b3e7c93cf5205861547e2d68dec4b23a
+
 	cal.add_component(event)
  
 	#msg = MIMEMultipart("alternative")

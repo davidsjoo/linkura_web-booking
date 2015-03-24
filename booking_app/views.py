@@ -78,9 +78,9 @@ class CustomerDelete(DeleteView):
         return reverse('booking_app:coach_index')
 
 #Visit
-def visit(request, slug,):
-    #customer = get_object_or_404(Customer, pk=customer_id)
-    customer = Customer.objects.get(slug=slug)
+def visit(request, customer_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    #customer = Customer.objects.get(slug=slug)
     
     return render(request, 'booking_app/visit.html', {
         'customer': customer,
@@ -251,8 +251,7 @@ def submit(request, visit_id):
         
         return render(request, 'booking_app/detail.html', {
             'visit': p,
-            'time_error_message': "Du har inte valt en tid.", 
-            
+            'time_error_message': "Du har inte valt en tid.",             
             'form': form,
             })
     else:

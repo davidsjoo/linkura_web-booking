@@ -9,8 +9,8 @@
 
 
 
-<h5><b><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa kontaktuppgifter för alla i det här besöket</a></b></h5>
-<h4>Tider som redan finns i detta besök</h4>
+<h5><a href="{% url 'booking_app:visit_detail' visit.pk %}">Visa kontaktuppgifter för alla i det här besöket</a></h5>
+
 
 <table width="100%" align="bottom" >
 <tr><th>Måndag
@@ -125,7 +125,7 @@
 </tr>
 </table>
 
-<h4>Lägg till ny tid</h4>
+<h5>Länk till det här besöket: <a href="http://127.0.0.1:8000/booking_app/{{visit.customer.slug}}-{{visit.visit_slug}}">http://127.0.0.1:8000/booking_app/{{visit.customer.slug}}-{{visit.visit_slug}}</a> </h5>
 <form action="{% url 'booking_app:add_time' visit.id %}" method="post">
 {% csrf_token %}
 
