@@ -97,15 +97,12 @@ td.reminder {
     border-radius: 5px;
 }
 
-
-
 th {
     background: #288dc0;
     color: white;
     padding: 5px 5px; 
     outline: 1px solid #D8D8D8;
 }
-
 
 .datetimepicker thead tr:first-child th:hover,
 .datetimepicker tfoot tr:first-child th:hover {
