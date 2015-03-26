@@ -26,5 +26,7 @@
 {% endfor %}
 {% endfor %}
 </table>
-<h5><a href="{% url 'booking_app:new_visit' customer.pk %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+<h5><a href="{% url 'booking_app:new_visit' customer.pk %}">
+<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> 
+Tillbaka </a></h5>
 {% endblock %}

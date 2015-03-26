@@ -1,9 +1,17 @@
 
-<input type="radio" {% if time.is_capacity_filled %}disabled{% endif %} name="time" id="time{{ forloop.counter }}" value="{{ time.id }}" />
+<input type="radio" 
+{% if time.is_capacity_filled %}disabled
+{% endif %} 
+name="time" id="time{{ forloop.counter }}" 
+value="{{ time.id }}" />
 <label for="time{{ forloop.counter }}">
 	{% if time.is_capacity_filled %}
-	<strike>{{ time.datetime|time:"H:i"}} - {{time.location}}</strike> FULLBOKAD
-	{% else %}{{ time.datetime|time:"H:i"}} - {{time.location}}
+		<strike>
+			{{ time.datetime|time:"H:i"}}
+			 - {{time.location}}</strike> FULLBOKAD
+	{% else %}
+	{{ time.datetime|time:"H:i"}}
+	 - {{time.location}}
 {% endif %}
 </label>
 <br />

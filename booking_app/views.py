@@ -20,7 +20,7 @@ from django.views.generic import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.utils.functional import lazy
 
-#   from booking_app.mail_inv import sendAppointment
+from booking_app.mail_inv import sendAppointment
 import datetime as dt
 import icalendar
 import uuid
@@ -388,7 +388,7 @@ def results(request, customer_id, visit_id, time_id, booking_id):
     event.add('priority', 5)
     event.add('sequence', 1)
     event.add('created', tz.localize(dt.datetime.now())) #Skillnad på denna och dtstamp?
-
+    
     cal.add_component(event)
     print cal 
 

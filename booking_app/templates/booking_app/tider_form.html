@@ -4,13 +4,13 @@
 	<a href="{% url 'booking_app:time_detail' time.pk %}" STYLE="text-decoration: none">{{ time.datetime|time:"H:i"}} - {{time.location}}</a>
 	<a href="{% url 'booking_app:time_update' time.id %}" STYLE="text-decoration: none"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
 	<a href="{% url 'booking_app:time_delete' time.id %}" STYLE="text-decoration: none"> <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></a>
-	<br />
+	<br /><div id="tider">
 	{% for booking in time.booking_set.all %}
-	<div id="tider"><a href="{% url 'booking_app:bokningar' time.id booking.id %}"><p class="normal">{{booking.client_firstname}} {{booking.client_lastname}}</p></a></div>
-	<br />
-	{% empty %}<div id="tider">---</div>
+	<a href="{% url 'booking_app:bokningar' time.id booking.id %}"><p class="normal">{{booking.client_firstname}} {{booking.client_lastname}}</p></a>
+	
+	{% empty %}---
 	{% endfor %}
-</label>
+</label></div>
 </li>
 
 

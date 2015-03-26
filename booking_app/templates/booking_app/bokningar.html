@@ -5,24 +5,36 @@
 <div id="rubrik">Kontaktuppgifter för {{booking.client_firstname}} {{booking.client_lastname}}</div><br />
 
 <table width="30%" align="bottom" >
-<tr>
-	<th>Mailadress</th>
-</tr>
-<tr>
-<td>{% if booking.client_mail %}{{booking.client_mail}}
-{% else %} <i>ej angiven</i>
-{% endif %}</td>
-</tr>
-<tr>
-	<th>Mobilnummer</th>
-</tr>
-<tr>
-	<td>{% if booking.client_phone %}{{booking.client_phone}}
-{% else %} <i>ej angivet</i>
-{% endif %}</td>
-</tr>
+	<tr>
+		<th>Mailadress</th>
+	</tr>
+	<tr>
+		<td>
+		{% if booking.client_mail %}
+			{{booking.client_mail}}
+		{% else %} 
+			<i>ej angiven</i>
+		{% endif %}</td>
+	</tr>
+	<tr>
+		<th>Mobilnummer</th>
+	</tr>
+	<tr>
+		<td>
+		{% if booking.client_phone %}
+			{{booking.client_phone}}
+		{% else %} 
+			<i>ej angivet</i>
+		{% endif %}
+		</td>
+	</tr>
 </table>
 
-<h5><a href="{% url 'booking_app:new_time' visit_id %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+<h5>
+<a href="{% url 'booking_app:new_time' visit_id %}">
+<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> 
+Tillbaka 
+</a>
+</h5>
 
 {% endblock %}

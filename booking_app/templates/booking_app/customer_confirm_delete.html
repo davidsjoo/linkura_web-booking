@@ -6,9 +6,15 @@
 
 <form action="" method="post">
     {% csrf_token %}
-    <h5><input type='submit' value='Ta bort' button type="submit" class="btn btn-primary" /></h5>
+    <h5>
+    <input type='submit' value='Ta bort' 
+    button type="submit" class="btn btn-primary" />
+    </h5>
 </form>
 
-<h5><a href="{% url 'booking_app:coach_index' %}"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Tillbaka </a></h5>
+<h5><a href="{% url 'booking_app:coach_index' %}">
+<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+ Tillbaka </a>
+ </h5>
 
 {% endblock %}

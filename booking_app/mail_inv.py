@@ -18,7 +18,7 @@ def sendAppointment(date):
 	cal.add('method', "REQUEST")
 	
 	event = icalendar.Event()
-	event.add('attendee', 'johan@test.se')
+	event.add('attendee', 'linkuramailtest@gmail.com')
 	event.add('organizer', "me@example.com")
 	event.add('status', "confirmed")
 	event.add('category', "Event")
