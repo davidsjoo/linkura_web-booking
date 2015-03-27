@@ -138,46 +138,7 @@ def detail(request, slug, visit_slug):
     form = BookingForm(request.POST or None)
     return render(request, 'booking_app/detail.html', { 'form': form, 'visit': visit, 'customer': customer,})
 
-#def results(request, customer_id, visit_id, time_id, booking_id):
-#    customer = get_object_or_404(Customer, pk=customer_id)
-#        #Customer: Företaget t.ex. Linkura
-#    visit = get_object_or_404(Visit, pk=visit_id)
-#        #Visit: typ av möte t.ex. uppstart
-#    booking = get_object_or_404(Booking, pk=booking_id)
-#        #Booking: Person uppgifter till den som bokat
-#    time = get_object_or_404(Time, pk=time_id)
-#        #Time: Tiden man valt. (time.datetime = datumet man valt)
-#
-#    # Kalender inbjudan
-#    tz = pytz.timezone("Europe/Stockholm")
-#    reminderHours = 1
-#    startHour = 7
-#    start = time.datetime
-#    cal = icalendar.Calendar()
-#    cal.add('prodid', '-//My calendar application//example.com//') #Ändra!
-#    cal.add('version', '2.0')
-#    cal.add('method', "REQUEST")
-#
-#    event = icalendar.Event()
-#    event.add('attendee', booking.client_mail)
-#    event.add('organizer', "me@example.com") #Ändra till Linkuras mail
-#    event.add('status', "confirmed") 
-#    event.add('category', "Event")
-#    event.add('summary', 'Möte med coach') #Ändra till något bättre
-#    event.add('description', 'description') #Ändra eller använd email.html som description
-#    event.add('location', time.location)
-#    event.add('dtstart', start)
-#    event.add('dtend', dt.time(startHour + 1, 0, 0))
-#    event.add('dtstamp', start) #Indikerar tiden när kalender objektet skapades
-#    event['uuid'] = uuid.uuid4() # Generate some unique ID
-#    event.add('priority', 5)
-#    event.add('sequence', 1)
-#    event.add('created', tz.localize(dt.datetime.now())) #Skillnad på denna och dtstamp?
-#
-#    cal.add_component(event)
-#    print cal #Skriver ut cal objektet till terminalen
 
-    # / Kalender inbjudan
 
 def new_time(request, visit_id):
     visit = get_object_or_404(Visit, pk=visit_id)
@@ -455,79 +416,6 @@ class BookingDetail(DetailView):
     def get_queryset(self):
         return Booking.objects.all()
 
-
-# def results(request, customer_id, visit_id, time_id, booking_id):
-#     customer = get_object_or_404(Customer, pk=customer_id)
-#         #Customer: Företaget t.ex. Linkura
-#     visit = get_object_or_404(Visit, pk=visit_id)
-#         #Visit: typ av möte t.ex. uppstart
-#     booking = get_object_or_404(Booking, pk=booking_id)
-#         #Booking: Person uppgifter till den som bokat
-#     time = get_object_or_404(Time, pk=time_id)
-#         #Time: Tiden man valt.
-
-#     # Kalender inbjudan
-#     tz = pytz.timezone("Europe/Stockholm")
-#     reminderHours = 1
-#     startHour = 7
-#     start = time.datetime
-#     cal = icalendar.Calendar()
-
-
-#     cal.add('prodid', '-//My calendar application//example.com//') #Ändra!
-#     cal.add('version', '2.0')
-#     cal.add('method', "REQUEST")
-
-#     event = icalendar.Event()
-#     event.add('attendee', booking.client_mail)
-#     event.add('organizer', "linkuramailtest@gmail.com") #Ändra till Linkuras mail
-#     event.add('status', "confirmed") 
-#     event.add('category', "Event")
-#     event.add('summary', 'Mote med coach') #Ändra till något bättre
-#     event.add('description', 'description') #Ändra eller använd email.html som description
-#     event.add('location', time.location)
-#     event.add('dtstart', start)
-#     event.add('dtend', dt.time(startHour + 1, 0, 0))
-#     event.add('dtstamp', start) #Indikerar tiden när kalender objektet skapades
-#     event['uuid'] = uuid.uuid4() # Generate some unique ID
-#     event.add('priority', 5)
-#     event.add('sequence', 1)
-#     event.add('created', tz.localize(dt.datetime.now())) #Skillnad på denna och dtstamp?
-
-#     cal.add_component(event)
-#     print cal #Skriver ut cal objektet till terminalen
-
-#     # / Kalender inbjudan
-
-#     link = 'http://lia.linkura.se:8080/booking_app/'+customer_id+'/'+visit_id+'/'+booking_id
-#     # send_inv = sendAppointment(time.datetime)
-#     mail = booking.client_mail
-#     from_email = settings.EMAIL_HOST_USER
-#     to_email = [mail]
-
-#     #msg_plain = render_to_string('booking_app/email.txt', {'booking': booking})
-#     msg_html = render_to_string(
-#         'booking_app/email.html',
-#         {
-#             'booking': booking,
-#             'customer': customer,
-#             'booking': booking,
-#             'visit': visit,
-#             'time': time,
-#             'link': link,
-#             #'sendAppointment': sendAppointment,
-#         })
-#     msg = EmailMultiAlternatives('Tidsbokning för Linkura', msg_html, from_email, to_email)
-#     msg.attach(cal.to_ical(), 'text/calendar')
-#     msg.send()
-#     visit = get_object_or_404(Visit, pk=visit_id)
-#     customer = get_object_or_404(Customer, pk=customer_id)
-#     form = BookingForm(request.POST or None)
-#     return render(request, 'booking_app/detail.html', {
-#         'visit': visit, 
-#         'customer': customer, 
-#         'form': form,
-#     })
 
 class BookingsView(generic.ListView):
     template_name = 'booking_app/bookinglist.html'
