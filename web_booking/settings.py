@@ -88,9 +88,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'linkuramailtest@gmail.com'
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
 EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = 'g3ghhi5623hu'
+EMAIL_HOST_PASSWORD = ''
 
 
